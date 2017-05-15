@@ -3,3 +3,7 @@
 Node::Node()
 {
 }
+
+Node::~Node()
+{
+}
