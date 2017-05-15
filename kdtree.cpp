@@ -1,10 +1,5 @@
-#include <iostream>
+#include "kdtree.h"
 
-using namespace std;
-
-int main()
+KdTree::KdTree()
 {
-    cout << "Hello World!" << endl;
-    return 0;
 }
-
