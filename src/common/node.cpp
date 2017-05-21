@@ -1,9 +1,13 @@
 #include <data_structures/common/node.h>
 
-Node::Node()
+template <typename T>
+Node<T>::Node(std::vector<T>& value, int size) : nodes_(size)
 {
+    value_ = value;
 }
 
-Node::~Node()
+
+template <typename T>
+Node<T>::~Node()
 {
 }
