@@ -3,3 +3,7 @@
 KdTree::KdTree()
 {
 }
+
+KdTree::~KdTree()
+{
+}

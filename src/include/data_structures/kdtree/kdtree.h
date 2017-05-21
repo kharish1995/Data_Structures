@@ -5,6 +5,7 @@ class KdTree
 {
 public:
     KdTree();
+    ~KdTree();
 };
 
 #endif // KDTREE_H
