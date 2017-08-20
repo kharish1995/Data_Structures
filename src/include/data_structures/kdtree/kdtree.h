@@ -28,25 +28,25 @@ class KdTree
     /**
          * \brief dimension of the input data
          */
-    int dataDimension_;
+    int dataDimension_ = 2;
 
 protected:
     /**
          * \brief insert Node into KdTree
          */
-    bool insert(std::vector<T>& , std::shared_ptr<Node<T> >, int);
+    std::shared_ptr<Node<T> > insert(std::vector<T>& , std::shared_ptr<Node<T> >, int);
     /**
          * \brief delete node from KdTree
          */
-    std::vector<T>& delete_node(std::vector<T>& , std::shared_ptr<Node<T> >, int);
+    std::vector<T> delete_node(std::vector<T>& , std::shared_ptr<Node<T> >, int);
     /**
          * \brief Find Minimum along a specified axis
          */
-    std::vector<T>& min(std::shared_ptr<Node<T> >, int, int);
+    std::vector<T> min(std::shared_ptr<Node<T> >, int, int);
     /**
          * \brief Find Maximum along a specified axis
          */
-    std::vector<T>& max(std::shared_ptr<Node<T> >, int, int);
+    std::vector<T> max(std::shared_ptr<Node<T> >, int, int);
 
 
 public:
@@ -79,6 +79,17 @@ public:
          */
     void findMax(std::vector<T>&, int);
 
+    std::vector<T> minimum(std::vector<T>, std::vector<T>, std::vector<T>, int);
+
+    std::vector<T> maximum(std::vector<T>, std::vector<T>, std::vector<T>, int);
+
+
 };
+
+//template class KdTree<int>;
+//template class KdTree<float>;
+//template class KdTree<double>;
+
+//#include "kdtree/kdtree.cpp"
 
 #endif // KDTREE_H
