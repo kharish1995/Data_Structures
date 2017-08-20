@@ -34,19 +34,19 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > insert(std::vector<T>& , std::shared_ptr<Node<T> >, int);
+    std::shared_ptr<Node<T> > insertNode(std::vector<T>& , std::shared_ptr<Node<T> >, int);
     /**
          * \brief delete node from KdTree
          */
-    std::vector<T> delete_node(std::vector<T>& , std::shared_ptr<Node<T> >, int);
+    std::vector<T> deleteNode(std::vector<T>& , std::shared_ptr<Node<T> >, int);
     /**
          * \brief Find Minimum along a specified axis
          */
-    std::vector<T> min(std::shared_ptr<Node<T> >, int, int);
+    std::vector<T> minNode(std::shared_ptr<Node<T> >, int, int);
     /**
          * \brief Find Maximum along a specified axis
          */
-    std::vector<T> max(std::shared_ptr<Node<T> >, int, int);
+    std::vector<T> maxNode(std::shared_ptr<Node<T> >, int, int);
 
 
 public:
@@ -54,6 +54,10 @@ public:
          * \brief Initiates a KdTree object
          */
     KdTree(int cutDimension_ = 0);
+    /**
+         * \brief Initiates a KdTree object
+         */
+    KdTree(std::vector<T>, int cutDimension_ = 0);
     /**
          * \brief Delete KdTree Object
          */
@@ -65,19 +69,19 @@ public:
     /**
          * \brief Helper function to insert node
          */
-    bool insertNode(std::vector<T>& );
+    bool insert_node(std::vector<T>& );
     /**
          * \brief Helper function to delete node
          */
-    bool deleteNode(std::vector<T>& );
+    bool delete_node(std::vector<T>& );
     /**
          * \brief Helper function to find minimum along a specified axis
          */
-    void findMin(std::vector<T>&, int);
+    void find_min(std::vector<T>&, int);
     /**
          * \brief Helper function to find maximum along a specified axis
          */
-    void findMax(std::vector<T>&, int);
+    void find_max(std::vector<T>&, int);
 
     std::vector<T> minimum(std::vector<T>, std::vector<T>, std::vector<T>, int);
 

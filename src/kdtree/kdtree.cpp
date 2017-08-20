@@ -7,30 +7,42 @@ KdTree<T>::KdTree(int cd) : cutDimension_(cd)
 }
 
 template <typename T>
+KdTree<T>::KdTree(std::vector<T> data, int cd) : cutDimension_(cd)
+{
+    data_ = std::make_shared<Node<T> >(data, data.size());
+}
+
+template <typename T>
 KdTree<T>::~KdTree()
 {
 
 }
 
 template <typename T>
-bool KdTree<T>::insertNode(std::vector<T>& data)
+bool KdTree<T>::insert_node(std::vector<T>& data)
 {
-    if(data_ == nullptr) { data_ = std::make_shared<Node<T> >(data, data.size()); dataDimension_ = data.size();}//shd look up
+    if(data_ == nullptr){
+        data_ = std::make_shared<Node<T> >(data, data.size());
+        dataDimension_ = data.size();
+    }//shd look up
 
-    if(insert(data, data_, cutDimension_) == nullptr)   return false;
+    if(insertNode(data, data_, cutDimension_) == nullptr)   return false;
 
     return true;
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::insert(std::vector<T>& data, std::shared_ptr<Node<T> > kd_node, int cd)
+std::shared_ptr<Node<T> > KdTree<T>::insertNode(std::vector<T>& data, std::shared_ptr<Node<T> > kd_node, int cd)
 {
     if(kd_node == nullptr)  kd_node = std::make_shared<Node<T> >(data, dataDimension_);
-    else if(data == kd_node->getValues());
 
-    else if(data[cd] < kd_node->getValue(cd)) kd_node->getNode(0) = insert(data, kd_node->getNode(0), (cd+1) % dataDimension_);
+    else if(data == kd_node->getValues()) return nullptr;
 
-    else    kd_node->getNode(1) = insert(data, kd_node->getNode(1), (cd+1) % dataDimension_);
+    else if(data[cd] < kd_node->getValue(cd))
+        kd_node->getNode(0) = insertNode(data, kd_node->getNode(0), (cd+1) % dataDimension_);
+
+    else
+        kd_node->getNode(1) = insertNode(data, kd_node->getNode(1), (cd+1) % dataDimension_);
 
     return kd_node;
 }
@@ -40,20 +52,20 @@ template <typename T>
 bool KdTree<T>::buildTree(std::vector<std::vector<T> >& data)
 {
     for(auto& node_data : data)
-        insertNode(node_data);
+        insert_node(node_data);
 
     return true;
 }
 
 template <typename T>
-void KdTree<T>::findMin(std::vector<T>& minimum, int axis)
+void KdTree<T>::find_min(std::vector<T>& minimum, int axis)
 {
     if(data_ == nullptr) return;
-     minimum = min(data_, axis, cutDimension_);
+     minimum = minNode(data_, axis, cutDimension_);
 }
 
 template <typename T>
-std::vector<T> KdTree<T>::min(std::shared_ptr<Node<T> > kd_node, int axis, int cd)
+std::vector<T> KdTree<T>::minNode(std::shared_ptr<Node<T> > kd_node, int axis, int cd)
 {
     if (kd_node == nullptr);
 
@@ -61,26 +73,26 @@ std::vector<T> KdTree<T>::min(std::shared_ptr<Node<T> > kd_node, int axis, int c
     {
         if (kd_node->getNode(0) == nullptr) return kd_node->getValues();
 
-        else return min(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
+        else return minNode(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
     }
 
     else
         //shd look up minimum
-        return minimum(min(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), min(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), kd_node->getValues(), axis);
+        return minimum(minNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), minNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), kd_node->getValues(), axis);
 }
 
 
 
 template <typename T>
-void KdTree<T>::findMax(std::vector<T>& maximum, int axis)
+void KdTree<T>::find_max(std::vector<T>& maximum, int axis)
 {
     if(data_ == nullptr) return;
-    maximum = max(data_, axis, cutDimension_);
+    maximum = maxNode(data_, axis, cutDimension_);
 }
 
 
 template <typename T>
-std::vector<T> KdTree<T>::max(std::shared_ptr<Node<T> > kd_node, int axis, int cd)
+std::vector<T> KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node, int axis, int cd)
 {
     if (kd_node == nullptr);
 
@@ -88,12 +100,12 @@ std::vector<T> KdTree<T>::max(std::shared_ptr<Node<T> > kd_node, int axis, int c
     {
         if (kd_node->getNode(0) == nullptr) return kd_node->getValues();
 
-        else return max(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
+        else return maxNode(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
     }
 
     else
         //shd look up minimum
-        return maximum(max(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), max(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), kd_node->getValues(), axis);
+        return maximum(maxNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), maxNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_), kd_node->getValues(), axis);
 }
 
 template <typename T>
@@ -120,33 +132,22 @@ std::vector<T> KdTree<T>::maximum(std::vector<T> value1, std::vector<T> value2, 
     return value3;
 }
 
-//template <typename T>
-//bool KdTree<T>::insertNode(std::vector<T>& data, int cd)
-//{
-//    if(data_.empty()) data_->value_ = data;
+template <typename T>
+bool KdTree<T>::delete_node(std::vector<T>& data)
+{
 
-//    std::shared_ptr<Node<T> > temp_node = std::make_shared<Node<T> >(data_);
+}
 
-//    while(true)
-//    {
-//        if(data == temp_node->value_)    return false;
+template <typename T>
+std::vector<T> KdTree<T>::deleteNode(std::vector<T>& data, std::shared_ptr<Node<T> > kd_node, int axis)
+{
+    if (kd_node == nullptr);
 
-//        else if(data[cd] < temp_node->value_[cd])
-//        {
-//            if(temp_node->nodes_[0] == nullptr) {temp_node->nodes_[0] = std::make_shared<Node<T> >(data); return true;}
-//            temp_node = temp_node->nodes_[0];
-//            cd = (cd + 1) % data.size();
-//        }
+    int new_axis = (axis + 1) % dataDimension_;
 
-//        else
-//        {
-//            if(temp_node->nodes_[1] == nullptr) {temp_node->nodes_[1] = std::make_shared<Node<T> >(data); return true;}
-//            temp_node = temp_node->nodes_[1];
-//            cd = (cd + 1) % data.size();
-//        }
+    if(data == kd_node->getValues())
+        if(kd_node->getNode(1) != NULL);
+}
 
 
-//    }
-
-//}
 
