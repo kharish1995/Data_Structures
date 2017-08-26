@@ -36,6 +36,10 @@ protected:
          */
     std::shared_ptr<Node<T> > insertNode(std::vector<T>& , std::shared_ptr<Node<T> >, int);
     /**
+         * \brief insert Node into KdTree
+         */
+    std::shared_ptr<Node<T> > findNode(std::vector<T> data, std::shared_ptr<Node<T> > kd_node, int axis);
+    /**
          * \brief delete node from KdTree
          */
     std::shared_ptr<Node<T> > deleteNode(std::vector<T> , std::shared_ptr<Node<T> > , int);
@@ -69,23 +73,27 @@ public:
     /**
          * \brief Create Tree structure for given input data
          */
-    bool buildTree(std::vector<std::vector<T> >& );
+    bool build(std::vector<std::vector<T> >& );
     /**
          * \brief Helper function to insert node
          */
-    bool insert_node(std::vector<T>& );
+    bool insert(std::vector<T>& );
+    /**
+         * \brief Helper function to insert node
+         */
+    bool find(std::vector<T>& data);
     /**
          * \brief Helper function to delete node
          */
-    bool delete_node(std::vector<T>& );
+    bool erase(std::vector<T>& );
     /**
          * \brief Helper function to find minimum along a specified axis
          */
-    void find_min(std::vector<T>&, int);
+    void min(std::vector<T>&, int);
     /**
          * \brief Helper function to find maximum along a specified axis
          */
-    void find_max(std::vector<T>&, int);
+    void max(std::vector<T>&, int);
 
 
 };
