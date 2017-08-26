@@ -15,12 +15,19 @@ KdTree<T>::KdTree(std::vector<T> data, int cd) : cutDimension_(cd)
 template <typename T>
 bool KdTree<T>::insert(std::vector<T>& data)
 {
+
+    if(data.empty()){
+        std::cerr << "Empty point provided!!" << std::endl;
+        return false;
+    }
+
     if(data_ == nullptr){
         data_ = std::make_shared<Node<T> >(data, data.size());
         dataDimension_ = data.size();
     }//shd look up
 
-    if(insertNode(data, data_, cutDimension_) == nullptr)   return false;
+    if(insertNode(data, data_, cutDimension_) == nullptr)
+        return false;
 
     return true;
 }
@@ -32,7 +39,8 @@ std::shared_ptr<Node<T> > KdTree<T>::insertNode(std::vector<T>& data,
 {
     if(kd_node == nullptr)  kd_node = std::make_shared<Node<T> >(data, dataDimension_);
 
-    else if(data == kd_node->getValues()) return nullptr;
+    else if(data == kd_node->getValues())
+        return nullptr;
 
     else if(data[cd] < kd_node->getValue(cd))
         kd_node->setNode(insertNode(data, kd_node->getNode(0), (cd+1) % dataDimension_), 0);
@@ -66,11 +74,13 @@ std::shared_ptr<Node<T> > KdTree<T>::minNode(std::shared_ptr<Node<T> > kd_node,
                                              int axis,
                                              int cd)
 {
-    if (kd_node == nullptr) return nullptr;
+    if (kd_node == nullptr)
+        return nullptr;
 
     if (cd == axis)
     {
-        if (kd_node->getNode(0) == nullptr) return kd_node;
+        if (kd_node->getNode(0) == nullptr)
+            return kd_node;
 
         return minNode(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
     }
@@ -99,11 +109,13 @@ std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
                                              int axis,
                                              int cd)
 {
-    if (kd_node == nullptr) return nullptr;
+    if (kd_node == nullptr)
+        return nullptr;
 
     if (cd == axis)
     {
-        if (kd_node->getNode(0) == nullptr) return kd_node;
+        if (kd_node->getNode(0) == nullptr)
+            return kd_node;
 
         return maxNode(kd_node->getNode(0), axis, (cd+1) % dataDimension_);
     }
