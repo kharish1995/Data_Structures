@@ -38,15 +38,19 @@ protected:
     /**
          * \brief delete node from KdTree
          */
-    std::vector<T> deleteNode(std::vector<T>& , std::shared_ptr<Node<T> >, int);
+    std::shared_ptr<Node<T> > deleteNode(std::vector<T> , std::shared_ptr<Node<T> > , int);
     /**
          * \brief Find Minimum along a specified axis
          */
-    std::vector<T> minNode(std::shared_ptr<Node<T> >, int, int);
+    std::shared_ptr<Node<T> > minNode(std::shared_ptr<Node<T> >, int, int);
     /**
          * \brief Find Maximum along a specified axis
          */
-    std::vector<T> maxNode(std::shared_ptr<Node<T> >, int, int);
+    std::shared_ptr<Node<T> > maxNode(std::shared_ptr<Node<T> >, int, int);
+
+    std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, int);
+
+    std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, int);
 
 
 public:
@@ -82,10 +86,6 @@ public:
          * \brief Helper function to find maximum along a specified axis
          */
     void find_max(std::vector<T>&, int);
-
-    std::vector<T> minimum(std::vector<T>, std::vector<T>, std::vector<T>, int);
-
-    std::vector<T> maximum(std::vector<T>, std::vector<T>, std::vector<T>, int);
 
 
 };

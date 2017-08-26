@@ -20,6 +20,14 @@ class Node
 
 public:
     /**
+         * \brief Set the values of the Node
+         */
+    void setValue(const std::vector<T>& value);
+    /**
+         * \brief Set the pointer to the Node
+         */
+    void setNode(const std::shared_ptr<Node<T> >& , u_int8_t);
+    /**
          * \brief constructs node object with the value given value
          */
     Node(std::vector<T>& , int size = 2);
@@ -43,6 +51,7 @@ public:
          * \brief get one of the children of the node
          */
     std::shared_ptr<Node<T> > getNode(u_int8_t) const;
+
 };
 
 template class Node<int>;
