@@ -38,7 +38,7 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > findNode(std::vector<T> data, std::shared_ptr<Node<T> > kd_node, int axis);
+    std::shared_ptr<Node<T> > findNode(std::vector<T> , std::shared_ptr<Node<T> > , int );
     /**
          * \brief delete node from KdTree
          */
@@ -81,7 +81,7 @@ public:
     /**
          * \brief Helper function to insert node
          */
-    bool find(std::vector<T>& data);
+    bool find(std::vector<T>& );
     /**
          * \brief Helper function to delete node
          */
