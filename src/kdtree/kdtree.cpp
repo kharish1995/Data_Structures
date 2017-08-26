@@ -58,7 +58,7 @@ void KdTree<T>::find_min(std::vector<T>& minimum,
                          int axis)
 {
     if(data_ == nullptr) return;
-     minimum = minNode(data_, axis, cutDimension_);
+     minimum = (minNode(data_, axis, cutDimension_))->getValues();
 }
 
 template <typename T>
@@ -79,7 +79,8 @@ std::shared_ptr<Node<T> > KdTree<T>::minNode(std::shared_ptr<Node<T> > kd_node,
         //shd look up minimum
         return minimum(minNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
                        minNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
-                       kd_node->getValues(), axis);
+                       kd_node,
+                       axis);
 }
 
 
@@ -89,7 +90,7 @@ void KdTree<T>::find_max(std::vector<T>& maximum,
                          int axis)
 {
     if(data_ == nullptr) return;
-    maximum = maxNode(data_, axis, cutDimension_);
+    maximum = (maxNode(data_, axis, cutDimension_))->getValues();
 }
 
 
@@ -111,7 +112,8 @@ std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
         //shd look up minimum
         return maximum(maxNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
                        maxNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
-                       kd_node->getValues(), axis);
+                       kd_node,
+                       axis);
 }
 
 template <typename T>
@@ -183,12 +185,12 @@ std::shared_ptr<Node<T> > KdTree<T>::deleteNode(std::vector<T> data,
 
     if(data == kd_node->getValues()){
         if(kd_node->getNode(1) != nullptr){
-            kd_node->setValue(minNode(kd_node->getNode(1), axis, new_axis));
+            kd_node->setValue((minNode(kd_node->getNode(1), axis, new_axis))->getValues());
             kd_node->setNode(deleteNode(kd_node->getValues(), kd_node->getNode(1), new_axis), 1);
     }
 
         else if(kd_node->getNode(0) != nullptr){
-            kd_node->setValue(minNode(kd_node->getNode(0), axis, new_axis));
+            kd_node->setValue((minNode(kd_node->getNode(0), axis, new_axis))->getValues());
             kd_node->setNode(deleteNode(kd_node->getValues(), kd_node->getNode(0), new_axis), 1);
     }
         else
