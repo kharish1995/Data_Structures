@@ -14,18 +14,8 @@ install(DIRECTORY src/include/${PROJECT_NAME} DESTINATION include
 	FILES_MATCHING PATTERN "*.h")
 install(TARGETS data_structures
 	LIBRARY DESTINATION lib)
-
-#set(TARGET kdtree)
 	
 add_executable(kdtree ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree_test.cpp)
 target_link_libraries(kdtree ${PROJECT_NAME})
 
-#add_executable(test_adjacency_list src/test/test_adjacency_list.cpp)
-#target_link_libraries(test_adjacency_list sbpl)
-
-
-
-
-#aux_source_directory(. SRC_LIST)
-#add_executable(${PROJECT_NAME} ${SRC_LIST})
 
