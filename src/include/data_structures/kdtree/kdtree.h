@@ -56,6 +56,10 @@ protected:
     std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, unsigned int);
 
     std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, unsigned int);
+    /**
+         * \brief Visualize the Tree
+         */
+    void visualizeTree(std::shared_ptr<Node<T> > node, int space);
 
 
 public:
@@ -99,7 +103,10 @@ public:
          * \brief Helper function to find maximum along a specified axis
          */
     void max(std::vector<T>&, unsigned int);
-
+    /**
+         * \brief Helper function to visualize tree
+         */
+    void view();
 
 };
 

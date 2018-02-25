@@ -31,7 +31,7 @@ bool KdTree<T>::insert(std::vector<T>& data)
         data_ = std::make_shared<Node<T> >(data, data.size());
         dataDimension_ = data.size();
         return true;
-    }//shd look up
+    }
 
     if(insertNode(data, data_, cutDimension_) == nullptr)
         return false;
@@ -93,14 +93,11 @@ std::shared_ptr<Node<T> > KdTree<T>::minNode(std::shared_ptr<Node<T> > kd_node,
     }
 
     else
-        //shd look up minimum
         return minimum(minNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
                        minNode(kd_node->getNode(1), axis, (cd + 1) % dataDimension_),
                        kd_node,
                        axis);
 }
-
-
 
 template <typename T>
 void KdTree<T>::max(std::vector<T>& maximum,
@@ -109,7 +106,6 @@ void KdTree<T>::max(std::vector<T>& maximum,
     if(data_ == nullptr) return;
     maximum = (maxNode(data_, axis, cutDimension_))->getValues();
 }
-
 
 template <typename T>
 std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
@@ -188,7 +184,10 @@ bool KdTree<T>::erase(std::vector<T>& data)
         return false;
     }
 
-    if(deleteNode(data, data_, cutDimension_) == nullptr){
+    if((data_->getNode(0) == nullptr) && (data_->getNode(1) == nullptr))
+        data_ = nullptr;
+
+    else if(deleteNode(data, data_, cutDimension_) == nullptr){
         std::cout << "Point not found" << std::endl;
         return false;
     }
@@ -271,6 +270,32 @@ std::shared_ptr<Node<T> > KdTree<T>::findNode(std::vector<T> data,
         kd_node = findNode(data, kd_node->getNode(1), new_axis);
 
     return kd_node;
+}
+
+template <typename T>
+void KdTree<T>::visualizeTree(std::shared_ptr<Node<T> > node, int space)
+{
+    if(node == nullptr)
+        return;
+    space += 10;
+
+    visualizeTree(node->getNode(1), space);
+    std::cout << '\n';
+
+    for(unsigned int i = 10; i < space; ++i)
+        std::cout << " ";
+
+    for(const auto& i : node->getValues())
+        std::cout << i << " ";
+
+    visualizeTree(node->getNode(0), space);
+    std::cout << '\n';
+}
+
+template <typename T>
+void KdTree<T>::view()
+{
+    visualizeTree(data_, 0);
 }
 
 template <typename T>
