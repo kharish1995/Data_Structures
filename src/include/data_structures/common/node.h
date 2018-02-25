@@ -22,19 +22,19 @@ public:
     /**
          * \brief Set the values of the Node
          */
-    void setValue(const std::vector<T>& value);
+    void setValue(std::vector<T>& value);
     /**
          * \brief Set the pointer to the Node
          */
-    void setNode(const std::shared_ptr<Node<T> >& , u_int8_t);
+    void setNode(std::shared_ptr<Node<T> > , unsigned int);
     /**
          * \brief constructs node object with the value given value
          */
-    Node(std::vector<T>& , int size = 2);
+    Node(std::vector<T>& , unsigned int size = 2);
     /**
          * \brief constructs node object with the value given pointer to value
          */
-    Node(std::vector<T>* , int size = 2);
+    Node(std::vector<T>* , unsigned int size = 2);
     /**
          * \brief deletes Node object
          */
@@ -42,7 +42,7 @@ public:
     /**
          * \brief get the value of a particular dimension
          */
-    T getValue(u_int8_t) const;
+    T getValue(unsigned int) const;
     /**
          * \brief get the entire node value
          */
@@ -50,11 +50,11 @@ public:
     /**
          * \brief get one of the children of the node
          */
-    std::shared_ptr<Node<T> > getNode(u_int8_t) const;
+    std::shared_ptr<Node<T> > getNode(unsigned int) const;
 
 };
 
-template class Node<int>;
-template class Node<float>;
-template class Node<double>;
+//template class Node<int>;
+//template class Node<float>;
+//template class Node<double>;
 #endif // NODE_H

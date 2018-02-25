@@ -1,36 +1,39 @@
 #include <data_structures/common/node.h>
 
 template <typename T>
-void Node<T>::setNode(const std::shared_ptr<Node<T> >& node, u_int8_t i)
+void Node<T>::setNode(std::shared_ptr<Node<T> > node, unsigned int i)
 {
     if (i <= nodes_.size())
-        nodes_[i] = node;
+    {
+        nodes_.at(i) = node;
+        return;
+    }
     std::cerr << "Index out of bounds for the node" << std::endl;
 }
 
 template <typename T>
-void Node<T>::setValue(const std::vector<T>& value)
+void Node<T>::setValue(std::vector<T>& value)
 {
     value_ = value;
 }
 
 template <typename T>
-Node<T>::Node(std::vector<T>& value, int size) : nodes_(size, nullptr)
+Node<T>::Node(std::vector<T>& value, unsigned int size) : nodes_(size, nullptr)
 {
     value_ = value;
 }
 
 template <typename T>
-Node<T>::Node(std::vector<T>* value, int size) : nodes_(size, nullptr)
+Node<T>::Node(std::vector<T>* value, unsigned int size) : nodes_(size, nullptr)
 {
     value_ = *value;
 }
 
 template <typename T>
-T Node<T>::getValue(u_int8_t i) const
+T Node<T>::getValue(unsigned int i) const
 {
     if (i <= value_.size())
-        return value_[i];
+        return value_.at(i);
     std::cerr << "Index out of bounds for the node" << std::endl;
 }
 
@@ -41,10 +44,10 @@ std::vector<T> Node<T>::getValues() const
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > Node<T>::getNode(u_int8_t i) const
+std::shared_ptr<Node<T> > Node<T>::getNode(unsigned int i) const
 {
     if (i <= nodes_.size())
-        return nodes_[i];
+        return nodes_.at(i);
     std::cerr << "Index out of bounds for the node" << std::endl;
 }
 
