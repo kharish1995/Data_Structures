@@ -166,9 +166,10 @@ std::shared_ptr<Node<T> > KdTree<T>::minimum(std::shared_ptr<Node<T> > node1,
     if(node1 == nullptr && node2 == nullptr)
         return node3;
 
-    else if(node1 == nullptr)
+    else if(node1 == nullptr){
         if(node2->getValue(axis) < node3->getValue(axis))
             return node2;
+    }
 
     else if(node2 == nullptr)
             if(node1->getValue(axis) < node3->getValue(axis))
@@ -186,9 +187,10 @@ std::shared_ptr<Node<T> > KdTree<T>::maximum(std::shared_ptr<Node<T> > node1,
     if(node1 == nullptr && node2 == nullptr)
         return node3;
 
-    else if(node1 == nullptr)
+    else if(node1 == nullptr){
         if(node2->getValue(axis) > node3->getValue(axis))
             return node2;
+    }
 
     else if(node2 == nullptr)
             if(node1->getValue(axis) > node3->getValue(axis))

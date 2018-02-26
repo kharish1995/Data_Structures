@@ -32,9 +32,14 @@ Node<T>::Node(std::vector<T>* value, unsigned int size) : nodes_(size, nullptr)
 template <typename T>
 T Node<T>::getValue(unsigned int i) const
 {
-    if (i <= value_.size())
+    try{
         return value_.at(i);
-    std::cerr << "Index out of bounds for the node" << '\n';
+    }
+      catch (const std::out_of_range& e){
+        std::cerr << "Index Out of bounds for Node " << e.what() << '\n';
+    }
+
+    return false;
 }
 
 template <typename T>
@@ -46,9 +51,14 @@ std::vector<T> Node<T>::getValues() const
 template <typename T>
 std::shared_ptr<Node<T> > Node<T>::getNode(unsigned int i) const
 {
-    if (i <= nodes_.size())
+    try{
         return nodes_.at(i);
-    std::cerr << "Index out of bounds for the node" << '\n';
+    }
+      catch (const std::out_of_range& e){
+        std::cerr << "Index Out of bounds for Node " << e.what() << '\n';
+    }
+
+    return nullptr;
 }
 
 template <typename T>
