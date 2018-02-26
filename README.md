@@ -1,5 +1,5 @@
 # Data_Structures
-KdTree, Linkedlist, BinaryTree (list will be updated) <br />
+KdTree, Linkedlist, BinaryTree (list will be updated as more data strucutes are implemented) <br />
 
 # REQUIREMENTS:
 
