@@ -3,8 +3,8 @@ KdTree, Linkedlist, BinaryTree (list will be updated as more data strucutes are 
 
 # REQUIREMENTS:
 
-CMkake Version - 3.1 <br />
-g++ Version    - 6.3 <br />
+CMake Version - 3.1 <br />
+g++ Version   - 6.3 <br />
 
 # INSTALLATION:
 
