@@ -24,7 +24,7 @@ bool KdTree<T>::insert(std::vector<T>& data)
 {
 
     if(data.empty()){
-        std::cerr << "Empty point provided!!" << std::endl;
+        std::cerr << "Empty point provided!!" << '\n';
         return false;
     }
     if(data_ == nullptr){
@@ -57,7 +57,6 @@ std::shared_ptr<Node<T> > KdTree<T>::insertNode(std::vector<T>& data,
 
     return kd_node;
 }
-
 
 template <typename T>
 bool KdTree<T>::build(std::vector<std::vector<T> >& data)
@@ -124,7 +123,6 @@ std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
     }
 
     else
-        //shd look up minimum
         return maximum(maxNode(kd_node->getNode(0), axis, (cd + 1) % dataDimension_),
                        maxNode(kd_node->getNode(1), axis, (cd + 1) % dataDimension_),
                        kd_node,
@@ -175,12 +173,12 @@ template <typename T>
 bool KdTree<T>::erase(std::vector<T>& data)
 {
     if(data_ == nullptr){
-        std::cerr << "Sorry, Tree not built yet!!" << std::endl;
+        std::cerr << "Sorry, Tree not built yet!!" << '\n';
         return false;
     }
 
     if(data.empty()){
-        std::cerr << "Empty point provided!!" << std::endl;
+        std::cerr << "Empty point provided!!" << '\n';
         return false;
     }
 
@@ -188,7 +186,7 @@ bool KdTree<T>::erase(std::vector<T>& data)
         data_ = nullptr;
 
     else if(deleteNode(data, data_, cutDimension_) == nullptr){
-        std::cout << "Point not found" << std::endl;
+        std::cout << "Point not found" << '\n';
         return false;
     }
 
@@ -230,20 +228,20 @@ std::shared_ptr<Node<T> > KdTree<T>::deleteNode(std::vector<T> data,
 }
 
 template <typename T>
-bool KdTree<T>::find(std::vector<T>& data)
+bool KdTree<T>::find(std::vector<T> &data)
 {
     if(data_ == nullptr){
-        std::cerr << "Sorry, Tree not built yet!!" << std::endl;
+        std::cerr << "Sorry, Tree not built yet!!" << '\n';
         return false;
     }
 
     if(data.empty()){
-        std::cerr << "Empty point provided!!" << std::endl;
+        std::cerr << "Empty point provided!!" << '\n';
         return false;
     }
 
     if(findNode(data, data_, cutDimension_) == nullptr){
-        std::cout << "Point not found" << std::endl;
+        std::cout << "Point not found" << '\n';
         return false;
     }
 

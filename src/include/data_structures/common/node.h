@@ -51,10 +51,23 @@ public:
          * \brief get one of the children of the node
          */
     std::shared_ptr<Node<T> > getNode(unsigned int) const;
+    /**
+         * \brief Move Constructor
+         */
+    Node(Node&& ) = default;
+    /**
+         * \brief Copy Constructor
+         */
+    Node(const Node&) = default;
+    /**
+         * \brief Copy Assignment Operator
+         */
+    Node& operator=(const Node&) = default;
+    /**
+         * \brief Move Assingnment Operator
+         */
+    Node& operator=(Node&&) = default;
 
 };
 
-//template class Node<int>;
-//template class Node<float>;
-//template class Node<double>;
 #endif // NODE_H

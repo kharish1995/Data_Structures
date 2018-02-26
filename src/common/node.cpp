@@ -8,7 +8,7 @@ void Node<T>::setNode(std::shared_ptr<Node<T> > node, unsigned int i)
         nodes_.at(i) = node;
         return;
     }
-    std::cerr << "Index out of bounds for the node" << std::endl;
+    std::cerr << "Index out of bounds for the node" << '\n';
 }
 
 template <typename T>
@@ -34,7 +34,7 @@ T Node<T>::getValue(unsigned int i) const
 {
     if (i <= value_.size())
         return value_.at(i);
-    std::cerr << "Index out of bounds for the node" << std::endl;
+    std::cerr << "Index out of bounds for the node" << '\n';
 }
 
 template <typename T>
@@ -48,7 +48,7 @@ std::shared_ptr<Node<T> > Node<T>::getNode(unsigned int i) const
 {
     if (i <= nodes_.size())
         return nodes_.at(i);
-    std::cerr << "Index out of bounds for the node" << std::endl;
+    std::cerr << "Index out of bounds for the node" << '\n';
 }
 
 template <typename T>

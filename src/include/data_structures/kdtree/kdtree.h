@@ -52,9 +52,13 @@ protected:
          * \brief Find Maximum along a specified axis
          */
     std::shared_ptr<Node<T> > maxNode(std::shared_ptr<Node<T> >, unsigned int, unsigned int);
-
+    /**
+         * \brief Compares three nodes along an axis and returns minimum
+         */
     std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, unsigned int);
-
+    /**
+         * \brief Compares three nodes along an axis and returns maximum
+         */
     std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, std::shared_ptr<Node<T> >, unsigned int);
     /**
          * \brief Visualize the Tree
@@ -82,7 +86,7 @@ public:
     /**
          * \brief Create Tree structure for given input data
          */
-    bool build(std::vector<std::vector<T> >& );
+    bool build(std::vector<std::vector<T> >&);
     /**
          * \brief Helper function to insert node
          */
@@ -107,13 +111,23 @@ public:
          * \brief Helper function to visualize tree
          */
     void view();
+    /**
+         * \brief Move Constructor
+         */
+    KdTree(KdTree&& ) = default;
+    /**
+         * \brief Copy Constructor
+         */
+    KdTree(const KdTree&) = default;
+    /**
+         * \brief Copy Assingment Operator
+         */
+    KdTree& operator=(const KdTree&) = default;
+    /**
+         * \brief Move Assignment Operator
+         */
+    KdTree& operator=(KdTree&&) = default;
 
 };
-
-//template class KdTree<int>;
-//template class KdTree<float>;
-//template class KdTree<double>;
-
-//#include "kdtree/kdtree.cpp"
 
 #endif // KDTREE_H
