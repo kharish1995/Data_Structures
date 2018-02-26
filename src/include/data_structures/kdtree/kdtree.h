@@ -88,17 +88,33 @@ public:
          */
     bool build(std::vector<std::vector<T> >&);
     /**
+         * \brief Create Tree structure for given input data - rvalue
+         */
+    bool build(std::vector<std::vector<T> >&& );
+    /**
          * \brief Helper function to insert node
          */
     bool insert(std::vector<T>& );
     /**
-         * \brief Helper function to insert node
+         * \brief Helper function to insert node - rvalue
+         */
+    bool insert(std::vector<T>&& );
+    /**
+         * \brief Helper function to find node
          */
     bool find(std::vector<T>& );
+    /**
+         * \brief Helper function to find node - rvalue
+         */
+    bool find(std::vector<T>&& );
     /**
          * \brief Helper function to delete node
          */
     bool erase(std::vector<T>& );
+    /**
+         * \brief Helper function to delete node - rvalue
+         */
+    bool erase(std::vector<T>&& );
     /**
          * \brief Helper function to find minimum along a specified axis
          */
