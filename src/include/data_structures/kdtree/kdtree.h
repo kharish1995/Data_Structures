@@ -63,7 +63,7 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualizeTree(std::shared_ptr<Node<T> > node, int space);
+    void visualizeTree(std::shared_ptr<Node<T> > , unsigned int);
 
 
 public:

@@ -63,7 +63,8 @@ std::shared_ptr<Node<T> > KdTree<T>::insertNode(std::vector<T>& data,
                                                 std::shared_ptr<Node<T> > kd_node,
                                                 unsigned int cd)
 {
-    if(kd_node == nullptr)  kd_node = std::make_shared<Node<T> >(data, dataDimension_);
+
+    if(kd_node == nullptr) kd_node = std::make_shared<Node<T> >(data, dataDimension_);
 
     else if(data == kd_node->getValues())
         return nullptr;
@@ -346,7 +347,7 @@ std::shared_ptr<Node<T> > KdTree<T>::findNode(std::vector<T> data,
 }
 
 template <typename T>
-void KdTree<T>::visualizeTree(std::shared_ptr<Node<T> > node, int space)
+void KdTree<T>::visualizeTree(std::shared_ptr<Node<T> > node, unsigned int space)
 {
     if(node == nullptr)
         return;
