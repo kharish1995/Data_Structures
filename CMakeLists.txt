@@ -1,6 +1,6 @@
 project(data_structures)
 cmake_minimum_required(VERSION 3.1)
-add_definitions(-Wall -Wextra -Werror "-std=c++1z")
+add_definitions(-Wall -Wpedantic -Wextra -Werror "-std=c++1z")
 
 message("CMAKE_CXX_FLAGS_DEBUG is ${CMAKE_CXX_FLAGS_DEBUG}")
 message("CMAKE_CXX_FLAGS_RELEASE is ${CMAKE_CXX_FLAGS_RELEASE}")
