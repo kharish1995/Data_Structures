@@ -17,7 +17,7 @@ cmake..
 make
 ```
 
-To use any of the data strucutres in your code, add the neccessary include statements in your code
+To use any of the data strucutres in your code, add the neccessary include statements in your code <br />
 KdTree:
 ```
 #include "kdtree.cpp"
