@@ -14,7 +14,7 @@ Follow the commands below to build the repo locally
 git clone https://github.com/HarishKarunakaran/Data_Structures.git
 cd Data_Structures/
 mkdir build && cd build/
-cmake.. 
+cmake .. 
 make
 ```
 
