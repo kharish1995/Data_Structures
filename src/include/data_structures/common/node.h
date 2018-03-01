@@ -22,11 +22,11 @@ public:
     /**
          * \brief Set the values of the Node
          */
-    void setValue(std::vector<T>& value);
+    virtual void setValue(std::vector<T>& value);
     /**
          * \brief Set the pointer to the Node
          */
-    void setNode(std::shared_ptr<Node<T> > , unsigned int);
+    virtual void setNode(std::shared_ptr<Node<T> > , unsigned int);
     /**
          * \brief constructs node object with the value given value
          */
@@ -38,19 +38,19 @@ public:
     /**
          * \brief deletes Node object
          */
-    ~Node();
+    virtual ~Node();
     /**
          * \brief get the value of a particular dimension
          */
-    T getValue(unsigned int) const;
+    virtual T getValue(unsigned int) const;
     /**
          * \brief get the entire node value
          */
-    std::vector<T> getValues() const;
+    virtual std::vector<T> getValues() const;
     /**
          * \brief get one of the children of the node
          */
-    std::shared_ptr<Node<T> > getNode(unsigned int) const;
+    virtual std::shared_ptr<Node<T> > getNode(unsigned int) const;
     /**
          * \brief Move Constructor
          */

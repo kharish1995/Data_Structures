@@ -20,6 +20,7 @@ void Node<T>::setValue(std::vector<T>& value)
 template <typename T>
 Node<T>::Node(std::vector<T>& value, unsigned int size) : nodes_(size, nullptr)
 {
+    std::cout << "ctor - Node \n";
     value_ = value;
 }
 

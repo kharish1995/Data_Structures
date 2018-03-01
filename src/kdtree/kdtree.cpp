@@ -3,6 +3,7 @@
 template <typename T>
 KdTree<T>::KdTree()
 {
+    std::cout << "ctor - KdTree \n";
     data_ = nullptr;
     cutDimension_ = 0;
 }
@@ -10,13 +11,15 @@ KdTree<T>::KdTree()
 template <typename T>
 KdTree<T>::KdTree(unsigned int cd) : cutDimension_(cd)
 {
+    std::cout << "ctor - KdTree \n";
     data_ = nullptr;
 }
 
 template <typename T>
 KdTree<T>::KdTree(std::vector<T>& data, unsigned int cd) : cutDimension_(cd)
 {
-    data_ = std::make_shared<Node<T> >(data, data.size());
+    std::cout << "ctor - KdTree \n";
+    data_ = std::make_shared<model<T> >(data, data.size());
 }
 
 template <typename T>
@@ -28,7 +31,7 @@ bool KdTree<T>::insert(std::vector<T>& data)
         return false;
     }
     if(data_ == nullptr){
-        data_ = std::make_shared<Node<T> >(data, data.size());
+        data_ = std::make_shared<nodeConcept>(data, data.size());
         dataDimension_ = data.size();
         return true;
     }
@@ -47,7 +50,7 @@ bool KdTree<T>::insert(std::vector<T>&& data)
         return false;
     }
     if(data_ == nullptr){
-        data_ = std::make_shared<Node<T> >(data, data.size());
+        data_ = std::make_shared<nodeConcept>(data, data.size());
         dataDimension_ = data.size();
         return true;
     }
@@ -59,12 +62,12 @@ bool KdTree<T>::insert(std::vector<T>&& data)
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::insertNode(std::vector<T>& data,
-                                                std::shared_ptr<Node<T> > kd_node,
+std::shared_ptr<nodeConcept> KdTree<T>::insertNode(std::vector<T>& data,
+                                                std::shared_ptr<nodeConcept> kd_node,
                                                 unsigned int cd)
 {
 
-    if(kd_node == nullptr) kd_node = std::make_shared<Node<T> >(data, dataDimension_);
+    if(kd_node == nullptr) kd_node = std::make_shared<nodeConcept>(data, dataDimension_);
 
     else if(data == kd_node->getValues())
         return nullptr;
@@ -105,7 +108,7 @@ void KdTree<T>::min(std::vector<T>& minimum,
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::minNode(std::shared_ptr<Node<T> > kd_node,
+std::shared_ptr<nodeConcept> KdTree<T>::minNode(std::shared_ptr<nodeConcept> kd_node,
                                              unsigned int axis,
                                              unsigned int cd)
 {
@@ -136,7 +139,7 @@ void KdTree<T>::max(std::vector<T>& maximum,
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
+std::shared_ptr<nodeConcept> KdTree<T>::maxNode(std::shared_ptr<nodeConcept> kd_node,
                                              unsigned int axis,
                                              unsigned int cd)
 {
@@ -159,9 +162,9 @@ std::shared_ptr<Node<T> > KdTree<T>::maxNode(std::shared_ptr<Node<T> > kd_node,
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::minimum(std::shared_ptr<Node<T> > node1,
-                                             std::shared_ptr<Node<T> > node2,
-                                             std::shared_ptr<Node<T> > node3,
+std::shared_ptr<nodeConcept> KdTree<T>::minimum(std::shared_ptr<nodeConcept> node1,
+                                             std::shared_ptr<nodeConcept> node2,
+                                             std::shared_ptr<nodeConcept> node3,
                                              unsigned int axis)
 {
     if(node1 == nullptr && node2 == nullptr)
@@ -180,9 +183,9 @@ std::shared_ptr<Node<T> > KdTree<T>::minimum(std::shared_ptr<Node<T> > node1,
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::maximum(std::shared_ptr<Node<T> > node1,
-                                             std::shared_ptr<Node<T> > node2,
-                                             std::shared_ptr<Node<T> > node3,
+std::shared_ptr<nodeConcept> KdTree<T>::maximum(std::shared_ptr<nodeConcept> node1,
+                                             std::shared_ptr<nodeConcept> node2,
+                                             std::shared_ptr<nodeConcept> node3,
                                              unsigned int axis)
 {
     if(node1 == nullptr && node2 == nullptr)
@@ -249,8 +252,8 @@ bool KdTree<T>::erase(std::vector<T>&& data)
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::deleteNode(std::vector<T> data,
-                                                std::shared_ptr<Node<T> > kd_node,
+std::shared_ptr<nodeConcept> KdTree<T>::deleteNode(std::vector<T> data,
+                                                std::shared_ptr<nodeConcept> kd_node,
                                                 unsigned int axis)
 {
     if (kd_node == nullptr)
@@ -325,8 +328,8 @@ bool KdTree<T>::find(std::vector<T>&& data)
 }
 
 template <typename T>
-std::shared_ptr<Node<T> > KdTree<T>::findNode(std::vector<T> data,
-                                              std::shared_ptr<Node<T> > kd_node,
+std::shared_ptr<nodeConcept> KdTree<T>::findNode(std::vector<T> data,
+                                              std::shared_ptr<nodeConcept> kd_node,
                                               unsigned int axis)
 {
     if (kd_node == nullptr)
@@ -347,7 +350,7 @@ std::shared_ptr<Node<T> > KdTree<T>::findNode(std::vector<T> data,
 }
 
 template <typename T>
-void KdTree<T>::visualizeTree(std::shared_ptr<Node<T> > node, unsigned int space)
+void KdTree<T>::visualizeTree(std::shared_ptr<nodeConcept> node, unsigned int space)
 {
     if(node == nullptr)
         return;
