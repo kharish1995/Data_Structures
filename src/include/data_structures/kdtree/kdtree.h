@@ -17,25 +17,10 @@
 
 class KdTree
 {
-    struct nodeConcept {    //Node
-        virtual ~nodeConcept() = default;
-        virtual std::shared_ptr<nodeConcept> copy_() const = 0;
-    };
-
-    template <typename T>
-    struct model final : Node<T> {    //int, float etc..
-        model(T x) : struct_data_(std::move(x)) { }
-        std::shared_ptr<nodeConcept> copy_() const override
-        {
-            return std::make_shared<model>(*this);
-        }
-        T struct_data_;
-    };
-
     /**
          * \brief Root Node of the KdTree
          */
-    std::shared_ptr<nodeConcept> data_;
+    std::shared_ptr<Node> data_;
     /**
          * \brief splitting axis of the data
          */
@@ -50,12 +35,12 @@ protected:
          * \brief insert Node into KdTree
          */
     template <typename T>
-    std::shared_ptr<nodeConcept> insertNode(std::vector<T>& data,
-                                            std::shared_ptr<nodeConcept> kd_node,
+    std::shared_ptr<Node> insertNode(std::vector<T>& data,
+                                            std::shared_ptr<Node> kd_node,
                                             unsigned int cd)
     {
 
-        if(kd_node == nullptr) kd_node = std::make_shared<nodeConcept>(data, dataDimension_);
+        if(kd_node == nullptr) kd_node = std::make_shared<Node>(data, dataDimension_);
 
         else if(data == kd_node->getValues())
             return nullptr;
@@ -72,8 +57,8 @@ protected:
          * \brief insert Node into KdTree
          */
     template <typename T>
-    std::shared_ptr<nodeConcept> findNode(std::vector<T> data,
-                                          std::shared_ptr<nodeConcept> kd_node,
+    std::shared_ptr<Node> findNode(std::vector<T> data,
+                                          std::shared_ptr<Node> kd_node,
                                           unsigned int axis)
     {
         if (kd_node == nullptr)
@@ -96,8 +81,8 @@ protected:
          * \brief delete node from KdTree
          */
     template <typename T>
-    std::shared_ptr<nodeConcept> deleteNode(std::vector<T> data,
-                                            std::shared_ptr<nodeConcept> kd_node,
+    std::shared_ptr<Node> deleteNode(std::vector<T> data,
+                                            std::shared_ptr<Node> kd_node,
                                             unsigned int axis)
     {
         if (kd_node == nullptr)
@@ -131,7 +116,7 @@ protected:
     /**
          * \brief Find Minimum along a specified axis
          */
-    std::shared_ptr<nodeConcept> minNode(std::shared_ptr<nodeConcept> kd_node,
+    std::shared_ptr<Node> minNode(std::shared_ptr<Node> kd_node,
                                          unsigned int axis,
                                          unsigned int cd)
     {
@@ -155,7 +140,7 @@ protected:
     /**
          * \brief Find Maximum along a specified axis
          */
-    std::shared_ptr<nodeConcept> maxNode(std::shared_ptr<nodeConcept> kd_node,
+    std::shared_ptr<Node> maxNode(std::shared_ptr<Node> kd_node,
                                          unsigned int axis,
                                          unsigned int cd)
     {
@@ -180,9 +165,9 @@ protected:
     /**
          * \brief Compares three nodes along an axis and returns minimum
          */
-    std::shared_ptr<nodeConcept> minimum(std::shared_ptr<nodeConcept> node1,
-                                         std::shared_ptr<nodeConcept> node2,
-                                         std::shared_ptr<nodeConcept> node3,
+    std::shared_ptr<Node> minimum(std::shared_ptr<Node> node1,
+                                         std::shared_ptr<Node> node2,
+                                         std::shared_ptr<Node> node3,
                                          unsigned int axis)
     {
         if(node1 == nullptr && node2 == nullptr)
@@ -202,9 +187,9 @@ protected:
     /**
          * \brief Compares three nodes along an axis and returns maximum
          */
-    std::shared_ptr<nodeConcept> maximum(std::shared_ptr<nodeConcept> node1,
-                                         std::shared_ptr<nodeConcept> node2,
-                                         std::shared_ptr<nodeConcept> node3,
+    std::shared_ptr<Node> maximum(std::shared_ptr<Node> node1,
+                                         std::shared_ptr<Node> node2,
+                                         std::shared_ptr<Node> node3,
                                          unsigned int axis)
     {
         if(node1 == nullptr && node2 == nullptr)
@@ -225,7 +210,7 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualizeTree(std::shared_ptr<nodeConcept> node, unsigned int space)
+    void visualizeTree(std::shared_ptr<Node> node, unsigned int space)
     {
         if(node == nullptr)
             return;
@@ -309,7 +294,7 @@ public:
             return false;
         }
         if(data_ == nullptr){
-            data_ = std::make_shared<nodeConcept>(data, data.size());
+            data_ = std::make_shared<Node>(data, data.size());
             dataDimension_ = data.size();
             return true;
         }
@@ -330,7 +315,7 @@ public:
             return false;
         }
         if(data_ == nullptr){
-            data_ = std::make_shared<nodeConcept>(data, data.size());
+            data_ = std::make_shared<Node>(data, data.size());
             dataDimension_ = data.size();
             return true;
         }

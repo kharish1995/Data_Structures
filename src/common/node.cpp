@@ -1,7 +1,7 @@
-#include <data_structures/common/node.h>
+//#include <data_structures/common/node.h>
 
 template <typename T>
-void Node<T>::setNode(std::shared_ptr<Node<T> > node, unsigned int i)
+void Node<T>::setNode(std::shared_ptr<concept_t> node, unsigned int i)
 {
     if (i <= nodes_.size())
     {
