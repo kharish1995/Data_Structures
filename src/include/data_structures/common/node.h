@@ -6,30 +6,10 @@
 #include <cmath>
 #include <memory>
 
+template <typename T>
 class Node
 {
-    struct concept_t
-    {
-        virtual ~concept_t() = default;
-        virtual std::unique_ptr<concept_t> copy_() const = 0;
-    };
-
-    template <typename T>
-    struct model final : concept_t
-    {
-        model(std::vector<T> x) : value_(std::move(x)) { }
-        std::unique_ptr<concept_t> copy_() const override
-        {
-            return std::make_unique<model>(*this);
-        }
-
-        std::vector<T> value_;
-    };
-
-    /**
-         * \brief stores the data in the node
-         */
-    std::unique_ptr<concept_t> self_;
+    std::vector<T> value_;
     /**
          * \brief pointers to children nodes
          */
@@ -39,15 +19,14 @@ public:
     /**
          * \brief Set the values of the Node
          */
-    template<typename T>
     void setValue(std::vector<T> value)
     {
-        self_ = std::make_unique<model<T> >(std::move(value));
+        value_ = value;
     }
     /**
          * \brief Set the pointer to the Node
          */
-    virtual void setNode(std::shared_ptr<Node> node, unsigned int i)
+    void setNode(std::shared_ptr<Node> node, unsigned int i)
     {
         if (i <= nodes_.size())
         {
@@ -59,16 +38,15 @@ public:
     /**
          * \brief constructs node object with the value given value
          */
-    template <typename T>
-    Node(std::vector<T> value, unsigned int size) : self_(std::make_unique<model<T> >(std::move(value))), nodes_(size, nullptr)
+    Node(std::vector<T> value, unsigned int size) : nodes_(size, nullptr)
     {
         std::cout << "ctor - Node \n";
-        //value_ = value;
+        value_ = value;
     }
     /**
          * \brief deletes Node object
          */
-    ~Node();
+    ~Node() { }
     /**
          * \brief get one of the children of the node
          */
@@ -84,12 +62,10 @@ public:
         return nullptr;
     }
 
-    template <typename T>
     T getValue(unsigned int i) const
     {
-        model<T>* derivedpointer = dynamic_cast<model<T>* >(self_);
         try{
-            return derivedpointer->value_.at(i);
+            return value_.at(i);
         }
           catch (const std::out_of_range& e){
             std::cerr << "Index Out of bounds for Node " << e.what() << '\n';
@@ -98,11 +74,9 @@ public:
         return false;
     }
 
-    template <typename T>
     std::vector<T> getValues() const
     {
-        model<T>* derivedpointer = dynamic_cast<model<T>* >(self_);
-        return  derivedpointer->value_;
+        return value_;
     }
 
     /**
@@ -112,7 +86,7 @@ public:
     /**
          * \brief Copy Constructor
          */
-    Node(const Node& x) : self_(x.self_->copy_()) { }
+    Node(const Node& x) = default;
     /**
          * \brief Copy Assignment Operator
          */

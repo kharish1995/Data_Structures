@@ -27,7 +27,16 @@ protected:
     /**
          * \brief insert Node into Linkedlist
          */
-    std::shared_ptr<Node<T> > insertNode(std::vector<T>& , std::shared_ptr<Node<T> >, unsigned int);
+    std::shared_ptr<Node<T> > insertNode(std::vector<T>& data,
+                                         std::shared_ptr<Node<T> > ll_node)
+    {
+        if(ll_node == nullptr) ll_node = std::make_shared<Node<T> >(data, 1);
+
+        else    ll_node->setNode(insertNode(data, ll_node->getNode(0)), 0);
+
+        return ll_node;
+    }
+
     /**
          * \brief insert Node into Linkedlist
          */
@@ -39,26 +48,69 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualize(std::shared_ptr<Node<T> > , unsigned int);
+    void visualize(std::shared_ptr<Node<T> > data)
+    {
+        if(data == nullptr)
+            return;
+
+        std::cout << data->getValue(0) << "-> ";
+        visualize(data->getNode(0));
+        std::cout << "\n";
+    }
 
 
 public:
     /**
          * \brief Initiates a Linkedlist object
          */
-    Linkedlist();
+    Linkedlist() : data_(nullptr) { }
+    /**
+       * \brief Initiates a Linkedlist object
+       */
+    Linkedlist(std::vector<T>& data) : data_(std::make_shared<Node<T> >(data, data.size())) { }
     /**
          * \brief Delete Linkedlist Object
          */
-    ~Linkedlist();
+    ~Linkedlist() { }
     /**
          * \brief Helper function to insert node
          */
-    bool insert(std::vector<T>& );
+    bool insert(std::vector<T>& data)
+    {
+        if(data.empty()){
+            std::cerr << "Empty point provided!!" << '\n';
+            return false;
+        }
+        if(data_ == nullptr){
+            data_ = std::make_shared<Node<T> >(data, data.size());
+            return true;
+        }
+
+        if(insertNode(data, data_) == nullptr)
+            return false;
+
+        return true;
+    }
     /**
          * \brief Helper function to insert node - rvalue
          */
-    bool insert(std::vector<T>&& );
+    bool insert(std::vector<T>&& data)
+    {
+        if(data.empty()){
+            std::cerr << "Empty point provided!!" << '\n';
+            return false;
+        }
+        if(data_ == nullptr){
+            data_ = std::make_shared<Node<T> >(data, data.size());
+            return true;
+        }
+
+        if(insertNode(data, data_) == nullptr)
+            return false;
+
+        return true;
+    }
+
     /**
          * \brief Helper function to find node
          */
@@ -76,9 +128,12 @@ public:
          */
     bool erase(std::vector<T>&& );
     /**
-         * \brief Helper function to visualize tree
+         * \brief Helper function to visualize Linked List
          */
-    void view();
+    void view()
+    {
+        visualize(data_);
+    }
     /**
          * \brief Move Constructor
          */

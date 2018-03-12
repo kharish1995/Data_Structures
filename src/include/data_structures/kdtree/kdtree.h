@@ -252,7 +252,7 @@ public:
          * \brief Initiates a KdTree object
          */
     template <typename T>
-    KdTree(std::vector<T>& data, unsigned int cd) : cutDimension_(cd), data_(std::make_shared<model<T> >(data, data.size()))
+    KdTree(std::vector<T>& data, unsigned int cd) : cutDimension_(cd), data_(std::make_shared<Node<T> >(data, data.size()))
     {
         std::cout << "ctor - KdTree \n";
     }
