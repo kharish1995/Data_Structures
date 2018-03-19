@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.1)
 add_definitions(-Wall -Wpedantic -Wextra -Werror "-std=c++1z")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 #add_library(${PROJECT_NAME} SHARED
 #	${CMAKE_CURRENT_SOURCE_DIR}/src/common/node.cpp
