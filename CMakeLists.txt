@@ -16,7 +16,7 @@ install(DIRECTORY src/include/${PROJECT_NAME} DESTINATION include
 #install(TARGETS data_structures
 #	LIBRARY DESTINATION lib)
 	
-#add_executable(kdtree ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree_test.cpp)
+add_executable(kdtree ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree_test.cpp)
 add_executable(linkedlist ${CMAKE_CURRENT_SOURCE_DIR}/src/linkedlist/linkedlist_test.cpp)
 #target_link_libraries(kdtree ${PROJECT_NAME})
 

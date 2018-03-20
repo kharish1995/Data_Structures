@@ -75,7 +75,11 @@ public:
     /**
          * \brief Helper function to insert node
          */
-    bool insert(std::vector<T>& data)
+    template <
+        class UR = std::vector<T>,
+        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+    >
+    bool insert(UR&& data)
     {
         if(data.empty()){
             std::cerr << "Empty point provided!!" << '\n';
@@ -91,26 +95,6 @@ public:
 
         return true;
     }
-    /**
-         * \brief Helper function to insert node - rvalue
-         */
-    bool insert(std::vector<T>&& data)
-    {
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
-            return false;
-        }
-        if(data_ == nullptr){
-            data_ = std::make_shared<Node<T> >(data, data.size());
-            return true;
-        }
-
-        if(insertNode(data, data_) == nullptr)
-            return false;
-
-        return true;
-    }
-
     /**
          * \brief Helper function to find node
          */

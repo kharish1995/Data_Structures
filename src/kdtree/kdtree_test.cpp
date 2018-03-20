@@ -1,5 +1,4 @@
-#include "common/node.cpp"
-#include "kdtree.cpp"
+#include <data_structures/kdtree/kdtree.h>
 
 int main()
 {
