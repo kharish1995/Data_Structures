@@ -27,8 +27,8 @@ protected:
     /**
          * \brief insert Node into Linkedlist
          */
-    std::shared_ptr<Node<T> > insertNode(std::vector<T>& data,
-                                         std::shared_ptr<Node<T> > ll_node)
+    std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<T> > ll_node) const
     {
         if(ll_node == nullptr) ll_node = std::make_shared<Node<T> >(data, 1);
 
@@ -40,34 +40,34 @@ protected:
     /**
          * \brief insert Node into Linkedlist
          */
-    std::shared_ptr<Node<T> > findNode(std::vector<T> , std::shared_ptr<Node<T> > , unsigned int );
+    std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
+                                       std::shared_ptr<Node<T> > ll_node) const
+    {
+
+    }
     /**
          * \brief delete node from Linkedlist
          */
-    std::shared_ptr<Node<T> > deleteNode(std::vector<T>& data, std::shared_ptr<Node<T> > ll_node)
+    std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<T> > ll_node)
     {
-        //auto ll_prev = ll_node;
-        if (ll_node->getValue(0) == data.at(0))
-        {
-            ll_node->setValue(ll_node->getNode(0)->getValues());
-            ll_node->setNode(ll_node->getNode(0)->getNode(0), 0);
-            return ll_node;
-        }
-        int count = 0;
-        while (ll_node != nullptr && ll_node->getValue(0) != data.at(0) && count < 10)
-        {
-            //ll_prev = ll_node;
-            ll_node->setNode(ll_node->getNode(0), 0);
-                        std::cout << ll_node << '\n';
-            count++;
-        }
-
         if (ll_node == nullptr)
             return nullptr;
 
-        // Unlink the node from linked list
-        //(ll_prev->getNode(0))->setNode(ll_node->getNode(0), 0);
-        //prev->next = temp->next;
+        if(data == ll_node->getValues())
+        {
+            if(ll_node->getNode(0) != nullptr)
+            {
+                //auto min1 = minNode(ll_node->getNode(0))->getValues();
+                ll_node->setValue({0});
+                ll_node->setNode(deleteNode(ll_node->getValues(), ll_node->getNode(0)), 0);
+            }
+            else
+                ll_node = nullptr;
+        }
+
+        else
+            ll_node->setNode(deleteNode(data, ll_node->getNode(0)), 0);
 
         return ll_node;
     }
@@ -75,7 +75,7 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualize(std::shared_ptr<Node<T> > data)
+    void visualize(std::shared_ptr<Node<T> > data) const
     {
 
         if(data == nullptr)
@@ -95,7 +95,7 @@ public:
     /**
        * \brief Initiates a Linkedlist object
        */
-    Linkedlist(std::vector<T>& data) : data_(std::make_shared<Node<T> >(data, data.size())) { }
+    Linkedlist(std::vector<T>& data) : data_(std::make_shared<Node<T> >(data, 1)) { }
     /**
          * \brief Delete Linkedlist Object
          */
@@ -126,11 +126,14 @@ public:
     /**
          * \brief Helper function to find node
          */
-    bool find(std::vector<T>& );
-    /**
-         * \brief Helper function to find node - rvalue
-         */
-    bool find(std::vector<T>&& );
+    template <
+        class UR = std::vector<T>,
+        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+    >
+    bool find(UR&& data) const
+    {
+        return true;
+    }
     /**
          * \brief Helper function to delete node
          */
@@ -164,26 +167,33 @@ public:
     /**
          * \brief Helper function to visualize Linked List
          */
-    void view()
+    void view() const
     {
         visualize(data_);
     }
     /**
          * \brief Move Constructor
          */
-    Linkedlist(Linkedlist&& ) = default;
+    Linkedlist(Linkedlist&& ) noexcept = default;
     /**
          * \brief Copy Constructor
          */
-    Linkedlist(const Linkedlist&) = default;
+    Linkedlist(const Linkedlist& linked_list) : data_(linked_list.data_)
+    {
+
+    }
+
     /**
          * \brief Copy Assingment Operator
          */
-    Linkedlist& operator=(const Linkedlist&) = default;
+    Linkedlist& operator=(const Linkedlist& linked_list) noexcept
+    {
+        return *this = Linkedlist(linked_list);
+    }
     /**
          * \brief Move Assignment Operator
          */
-    Linkedlist& operator=(Linkedlist&&) = default;
+    Linkedlist& operator=(Linkedlist&&) noexcept = default;
 
 };
 
