@@ -40,12 +40,12 @@ public:
             nodes_.at(i) = node;
             return;
         }
-        std::cerr << "Index out of bounds for the node" << '\n';
+        std::cerr << "Index out of bounds for Node - setNode" << '\n';
     }
     /**
          * \brief constructs node object with the value given value
          */
-    Node(std::vector<T>& value, unsigned int size = 2) : nodes_(size, nullptr)
+    Node(const std::vector<T>& value, unsigned int size = 2) : nodes_(size, nullptr)
     {
         value_ = value;
     }
@@ -73,7 +73,7 @@ public:
             return value_.at(i);
         }
           catch (const std::out_of_range& e){
-            std::cerr << "Index Out of bounds for Node " << e.what() << '\n';
+            std::cerr << "Index Out of bounds at Node - getValue " << e.what() << '\n';
         }
 
         return false;
@@ -95,7 +95,7 @@ public:
             return nodes_.at(i);
         }
           catch (const std::out_of_range& e){
-            std::cerr << "Index Out of bounds for Node " << e.what() << '\n';
+            std::cerr << "Index Out of bounds for Node - getNode " << e.what() << '\n';
         }
 
         return nullptr;

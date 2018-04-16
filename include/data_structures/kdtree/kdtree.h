@@ -35,9 +35,9 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > insertNode(std::vector<T>& data,
-                                            std::shared_ptr<Node<T> > kd_node,
-                                            unsigned int cd)
+    std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<T> > kd_node,
+                                         unsigned int cd)
     {
 
         if(kd_node == nullptr) kd_node = std::make_shared<Node<T> >(data, dataDimension_);
@@ -56,9 +56,9 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > findNode(std::vector<T> data,
-                                          std::shared_ptr<Node<T> > kd_node,
-                                          unsigned int axis)
+    std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
+                                       std::shared_ptr<Node<T> > kd_node,
+                                       unsigned int axis)
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -79,9 +79,9 @@ protected:
     /**
          * \brief delete node from KdTree
          */
-    std::shared_ptr<Node<T> > deleteNode(std::vector<T> data,
-                                            std::shared_ptr<Node<T> > kd_node,
-                                            unsigned int axis)
+    std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<T> > kd_node,
+                                         unsigned int axis)
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -115,8 +115,8 @@ protected:
          * \brief Find Minimum along a specified axis
          */
     std::shared_ptr<Node<T> > minNode(std::shared_ptr<Node<T> > kd_node,
-                                         unsigned int axis,
-                                         unsigned int cd)
+                                      unsigned int axis,
+                                      unsigned int cd)
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -139,8 +139,8 @@ protected:
          * \brief Find Maximum along a specified axis
          */
     std::shared_ptr<Node<T> > maxNode(std::shared_ptr<Node<T> > kd_node,
-                                         unsigned int axis,
-                                         unsigned int cd)
+                                      unsigned int axis,
+                                      unsigned int cd)
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -164,9 +164,9 @@ protected:
          * \brief Compares three nodes along an axis and returns minimum
          */
     std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> > node1,
-                                         std::shared_ptr<Node<T> > node2,
-                                         std::shared_ptr<Node<T> > node3,
-                                         unsigned int axis)
+                                      std::shared_ptr<Node<T> > node2,
+                                      std::shared_ptr<Node<T> > node3,
+                                      unsigned int axis)
     {
         if(node1 == nullptr && node2 == nullptr)
             return node3;
@@ -186,9 +186,9 @@ protected:
          * \brief Compares three nodes along an axis and returns maximum
          */
     std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> > node1,
-                                         std::shared_ptr<Node<T> > node2,
-                                         std::shared_ptr<Node<T> > node3,
-                                         unsigned int axis)
+                                      std::shared_ptr<Node<T> > node2,
+                                      std::shared_ptr<Node<T> > node3,
+                                      unsigned int axis)
     {
         if(node1 == nullptr && node2 == nullptr)
             return node3;
@@ -208,7 +208,8 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualizeTree(std::shared_ptr<Node<T> > node, unsigned int space)
+    void visualizeTree(std::shared_ptr<Node<T> > node,
+                       unsigned int space)
     {
         if(node == nullptr)
             return;
@@ -370,7 +371,7 @@ public:
          * \brief Helper function to find maximum along a specified axis
          */
     void max(std::vector<T>& maximum,
-                             unsigned int axis)
+             unsigned int axis)
     {
         if(data_ == nullptr) return;
         maximum = (maxNode(data_, axis, cutDimension_))->getValues();

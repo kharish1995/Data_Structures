@@ -9,6 +9,7 @@ install(DIRECTORY include/${PROJECT_NAME} DESTINATION include
 	
 add_executable(kdtree ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree_test.cpp)
 add_executable(linkedlist ${CMAKE_CURRENT_SOURCE_DIR}/src/linkedlist/linkedlist_test.cpp)
+add_executable(binarytree ${CMAKE_CURRENT_SOURCE_DIR}/src/binarytree/binarytree_test.cpp)
 #target_link_libraries(kdtree ${PROJECT_NAME})
 
 
