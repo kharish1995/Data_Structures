@@ -4,17 +4,8 @@ add_definitions(-Wall -Wpedantic -Wextra -Werror "-std=c++1z")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-#add_library(${PROJECT_NAME} SHARED
-#	${CMAKE_CURRENT_SOURCE_DIR}/src/common/node.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/src/linkedlist/linkedlist.cpp
-#        ${CMAKE_CURRENT_SOURCE_DIR}/src/binarytree/binarytree.cpp
-#	)
-
 install(DIRECTORY include/${PROJECT_NAME} DESTINATION include
 	FILES_MATCHING PATTERN "*.h")
-#install(TARGETS data_structures
-#	LIBRARY DESTINATION lib)
 	
 add_executable(kdtree ${CMAKE_CURRENT_SOURCE_DIR}/src/kdtree/kdtree_test.cpp)
 add_executable(linkedlist ${CMAKE_CURRENT_SOURCE_DIR}/src/linkedlist/linkedlist_test.cpp)
