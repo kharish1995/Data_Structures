@@ -22,7 +22,11 @@ public:
     /**
          * \brief Set the values of the Node
          */
-    void setValue(std::vector<T>& value)
+    template <
+        class UR = std::vector<T>,
+        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+    >
+    void setValue(UR&& value)
     {
         value_ = value;
     }

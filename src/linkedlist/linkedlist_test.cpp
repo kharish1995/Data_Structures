@@ -9,7 +9,10 @@ int main()
     Linkedlist<int> ll;
     ll.insert(data1);
     ll.insert({4});
-    ll.view();
+    ll.insert({3});
+    ll.insert({2});
+    ll.erase({2});
+    //ll.view();
 //    KdTree<int> Tree;
 //    Tree.build({{1,2},{3,4},{5,6},{9,10}});
 //    Tree.insert({7,8});

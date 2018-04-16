@@ -44,16 +44,44 @@ protected:
     /**
          * \brief delete node from Linkedlist
          */
-    std::shared_ptr<Node<T> > deleteNode(std::vector<T> , std::shared_ptr<Node<T> > , unsigned int);
+    std::shared_ptr<Node<T> > deleteNode(std::vector<T>& data, std::shared_ptr<Node<T> > ll_node)
+    {
+        //auto ll_prev = ll_node;
+        if (ll_node->getValue(0) == data.at(0))
+        {
+            ll_node->setValue(ll_node->getNode(0)->getValues());
+            ll_node->setNode(ll_node->getNode(0)->getNode(0), 0);
+            return ll_node;
+        }
+        int count = 0;
+        while (ll_node != nullptr && ll_node->getValue(0) != data.at(0) && count < 10)
+        {
+            //ll_prev = ll_node;
+            ll_node->setNode(ll_node->getNode(0), 0);
+                        std::cout << ll_node << '\n';
+            count++;
+        }
+
+        if (ll_node == nullptr)
+            return nullptr;
+
+        // Unlink the node from linked list
+        //(ll_prev->getNode(0))->setNode(ll_node->getNode(0), 0);
+        //prev->next = temp->next;
+
+        return ll_node;
+    }
+
     /**
          * \brief Visualize the Tree
          */
     void visualize(std::shared_ptr<Node<T> > data)
     {
+
         if(data == nullptr)
             return;
 
-        std::cout << data->getValue(0) << "-> ";
+        std::cout << data << "-> ";
         visualize(data->getNode(0));
         std::cout << "\n";
     }
@@ -106,11 +134,33 @@ public:
     /**
          * \brief Helper function to delete node
          */
-    bool erase(std::vector<T>& );
-    /**
-         * \brief Helper function to delete node - rvalue
-         */
-    bool erase(std::vector<T>&& );
+    template <
+        class UR = std::vector<T>,
+        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+    >
+    bool erase(UR&& data)
+    {
+        if(data_ == nullptr){
+            std::cerr << "Sorry, Linked List not built yet!!" << '\n';
+            return false;
+        }
+
+        if(data.empty()){
+            std::cerr << "Empty point provided!!" << '\n';
+            return false;
+        }
+
+        if(data_->getNode(0) == nullptr)
+            data_ = nullptr;
+
+        else if(deleteNode(data, data_) == nullptr){
+            std::cout << "Point not found" << '\n';
+            return false;
+        }
+
+        return true;
+    }
+
     /**
          * \brief Helper function to visualize Linked List
          */

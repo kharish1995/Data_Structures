@@ -2,7 +2,7 @@ project(data_structures)
 cmake_minimum_required(VERSION 3.1)
 add_definitions(-Wall -Wpedantic -Wextra -Werror "-std=c++1z")
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 #add_library(${PROJECT_NAME} SHARED
 #	${CMAKE_CURRENT_SOURCE_DIR}/src/common/node.cpp
@@ -11,7 +11,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 #        ${CMAKE_CURRENT_SOURCE_DIR}/src/binarytree/binarytree.cpp
 #	)
 
-install(DIRECTORY src/include/${PROJECT_NAME} DESTINATION include
+install(DIRECTORY include/${PROJECT_NAME} DESTINATION include
 	FILES_MATCHING PATTERN "*.h")
 #install(TARGETS data_structures
 #	LIBRARY DESTINATION lib)
