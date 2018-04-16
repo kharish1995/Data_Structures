@@ -37,7 +37,7 @@ protected:
          */
     std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
                                          std::shared_ptr<Node<T> > kd_node,
-                                         unsigned int cd)
+                                         unsigned int cd) const
     {
 
         if(kd_node == nullptr) kd_node = std::make_shared<Node<T> >(data, dataDimension_);
@@ -58,7 +58,7 @@ protected:
          */
     std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
                                        std::shared_ptr<Node<T> > kd_node,
-                                       unsigned int axis)
+                                       unsigned int axis) const
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -81,7 +81,7 @@ protected:
          */
     std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
                                          std::shared_ptr<Node<T> > kd_node,
-                                         unsigned int axis)
+                                         unsigned int axis) const
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -116,7 +116,7 @@ protected:
          */
     std::shared_ptr<Node<T> > minNode(std::shared_ptr<Node<T> > kd_node,
                                       unsigned int axis,
-                                      unsigned int cd)
+                                      unsigned int cd) const
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -140,7 +140,7 @@ protected:
          */
     std::shared_ptr<Node<T> > maxNode(std::shared_ptr<Node<T> > kd_node,
                                       unsigned int axis,
-                                      unsigned int cd)
+                                      unsigned int cd) const
     {
         if (kd_node == nullptr)
             return nullptr;
@@ -166,7 +166,7 @@ protected:
     std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> > node1,
                                       std::shared_ptr<Node<T> > node2,
                                       std::shared_ptr<Node<T> > node3,
-                                      unsigned int axis)
+                                      unsigned int axis) const
     {
         if(node1 == nullptr && node2 == nullptr)
             return node3;
@@ -188,7 +188,7 @@ protected:
     std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> > node1,
                                       std::shared_ptr<Node<T> > node2,
                                       std::shared_ptr<Node<T> > node3,
-                                      unsigned int axis)
+                                      unsigned int axis) const
     {
         if(node1 == nullptr && node2 == nullptr)
             return node3;
@@ -209,7 +209,7 @@ protected:
          * \brief Visualize the Tree
          */
     void visualizeTree(std::shared_ptr<Node<T> > node,
-                       unsigned int space)
+                       unsigned int space) const
     {
         if(node == nullptr)
             return;
@@ -242,7 +242,7 @@ public:
     /**
          * \brief Initiates a KdTree object
          */
-    KdTree(unsigned int cd) : cutDimension_(cd)
+    KdTree(const unsigned int cd) : cutDimension_(cd)
     {
         std::cout << "ctor - KdTree \n";
         data_ = nullptr;
@@ -250,7 +250,7 @@ public:
     /**
          * \brief Initiates a KdTree object
          */
-    KdTree(std::vector<T>& data, unsigned int cd) : cutDimension_(cd), data_(std::make_shared<Node<T> >(data, data.size()))
+    KdTree(const std::vector<T>& data, unsigned int cd) : cutDimension_(cd), data_(std::make_shared<Node<T> >(data, data.size()))
     {
         std::cout << "ctor - KdTree \n";
     }
@@ -269,11 +269,11 @@ public:
         class UR = std::vector<std::vector<T> >,
         class TypeMustBeStdVectorofVectors = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<std::vector<T> > >::value>
     >
-    bool build(UR&& data)
+    bool build(const UR&& data)
     {
-        for(auto& node_data : data)
+        for(const auto& node_data : data)
         {
-            if(!insert(node_data))
+            if(!insert(std::forward<const std::vector<T> >(node_data)))
                 return false;
         }
         return true;
@@ -285,7 +285,7 @@ public:
         class UR = std::vector<T>,
         class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
     >
-    bool insert(UR&& data)
+    bool insert(const UR&& data)
     {
 
         if(data.empty()){
@@ -310,7 +310,7 @@ public:
         class UR = std::vector<T> ,
         class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
     >
-    bool find(UR&& data)
+    bool find(const UR&& data) const
     {
         if(data_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
@@ -336,7 +336,7 @@ public:
         class UR = std::vector<T>,
         class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
     >
-    bool erase(UR&& data)
+    bool erase(const UR&& data)
     {
         if(data_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
@@ -362,7 +362,7 @@ public:
          * \brief Helper function to find minimum along a specified axis
          */
     void min(std::vector<T>& minimum,
-             unsigned int axis)
+             unsigned int axis) const
     {
         if(data_ == nullptr) return;
         minimum = (minNode(data_, axis, cutDimension_))->getValues();
@@ -371,7 +371,7 @@ public:
          * \brief Helper function to find maximum along a specified axis
          */
     void max(std::vector<T>& maximum,
-             unsigned int axis)
+             unsigned int axis) const
     {
         if(data_ == nullptr) return;
         maximum = (maxNode(data_, axis, cutDimension_))->getValues();
@@ -379,7 +379,7 @@ public:
     /**
          * \brief Helper function to visualize tree
          */
-    void view()
+    void view() const
     {
         visualizeTree(data_, 0);
     }
