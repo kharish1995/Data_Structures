@@ -271,8 +271,10 @@ public:
     bool build(UR&& data)
     {
         for(auto& node_data : data)
-            insert(node_data);
-
+        {
+            if(!insert(node_data))
+                return false;
+        }
         return true;
     }
     /**
