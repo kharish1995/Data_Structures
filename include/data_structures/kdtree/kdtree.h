@@ -21,7 +21,7 @@ class KdTree
     /**
          * \brief Root Node of the KdTree
          */
-    std::shared_ptr<Node<T> > data_;
+    std::shared_ptr<Node<T> > root_;
     /**
          * \brief splitting axis of the data
          */
@@ -236,7 +236,7 @@ public:
     KdTree()
     {
         std::cout << "ctor - KdTree \n";
-        data_ = nullptr;
+        root_ = nullptr;
         cutDimension_ = 0;
     }
     /**
@@ -245,12 +245,12 @@ public:
     KdTree(const unsigned int cd) : cutDimension_(cd)
     {
         std::cout << "ctor - KdTree \n";
-        data_ = nullptr;
+        root_ = nullptr;
     }
     /**
          * \brief Initiates a KdTree object
          */
-    KdTree(const std::vector<T>& data, unsigned int cd) : cutDimension_(cd), data_(std::make_shared<Node<T> >(data, data.size()))
+    KdTree(const std::vector<T>& data, unsigned int cd) : cutDimension_(cd), root_(std::make_shared<Node<T> >(data, data.size()))
     {
         std::cout << "ctor - KdTree \n";
     }
@@ -292,13 +292,13 @@ public:
             std::cerr << "Empty point provided!!" << '\n';
             return false;
         }
-        if(data_ == nullptr){
-            data_ = std::make_shared<Node<T> >(data, data.size());
+        if(root_ == nullptr){
+            root_ = std::make_shared<Node<T> >(data, data.size());
             dataDimension_ = data.size();
             return true;
         }
 
-        if(insertNode(data, data_, cutDimension_) == nullptr)
+        if(insertNode(data, root_, cutDimension_) == nullptr)
             return false;
 
         return true;
@@ -312,7 +312,7 @@ public:
     >
     bool find(const UR&& data) const
     {
-        if(data_ == nullptr){
+        if(root_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
             return false;
         }
@@ -322,7 +322,7 @@ public:
             return false;
         }
 
-        if(findNode(data, data_, cutDimension_) == nullptr){
+        if(findNode(data, root_, cutDimension_) == nullptr){
             std::cout << "Point not found" << '\n';
             return false;
         }
@@ -338,7 +338,7 @@ public:
     >
     bool erase(const UR&& data)
     {
-        if(data_ == nullptr){
+        if(root_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
             return false;
         }
@@ -348,10 +348,10 @@ public:
             return false;
         }
 
-        if((data_->getNode(0) == nullptr) && (data_->getNode(1) == nullptr))
-            data_ = nullptr;
+        if((root_->getNode(0) == nullptr) && (root_->getNode(1) == nullptr))
+            root_ = nullptr;
 
-        else if(deleteNode(data, data_, cutDimension_) == nullptr){
+        else if(deleteNode(data, root_, cutDimension_) == nullptr){
             std::cout << "Point not found" << '\n';
             return false;
         }
@@ -364,8 +364,8 @@ public:
     void min(std::vector<T>& minimum,
              unsigned int axis) const
     {
-        if(data_ == nullptr) return;
-        minimum = (minNode(data_, axis, cutDimension_))->getValues();
+        if(root_ == nullptr) return;
+        minimum = (minNode(root_, axis, cutDimension_))->getValues();
     }
     /**
          * \brief Helper function to find maximum along a specified axis
@@ -373,15 +373,15 @@ public:
     void max(std::vector<T>& maximum,
              unsigned int axis) const
     {
-        if(data_ == nullptr) return;
-        maximum = (maxNode(data_, axis, cutDimension_))->getValues();
+        if(root_ == nullptr) return;
+        maximum = (maxNode(root_, axis, cutDimension_))->getValues();
     }
     /**
          * \brief Helper function to visualize tree
          */
     void view() const
     {
-        visualizeTree(data_, 0);
+        visualizeTree(root_, 0);
     }
     /**
          * \brief Move Constructor
@@ -390,7 +390,7 @@ public:
     /**
          * \brief Copy Constructor
          */
-    KdTree(const KdTree& kdtree) : data_(kdtree.data_)
+    KdTree(const KdTree& kdtree) : root_(kdtree.root_)
     { std::cout << "copy - KdTree \n";}
     /**
          * \brief Copy Assingment Operator

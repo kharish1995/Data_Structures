@@ -1,12 +1,6 @@
-/*
- * This code is developed to implement the Binarytree data structure
- * The authors of this code is Harish Karunakaran
- * The code is available at https://github.com/HarishKarunakaran/Data_Structures/
- *
- */
 
-#ifndef BINARYTREE_H
-#define BINARYTREE_H
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include <iostream>
 #include <vector>
@@ -16,16 +10,16 @@
 #include <data_structures/common/node.h>
 
 template <typename T>
-class Binarytree
+class Graph
 {
     /**
-         * \brief Root Node of the Binarytree
+         * \brief Root Node of the Graph
          */
-    std::shared_ptr<Node<T> > root_;
+    std::shared_ptr<Node<T> > data_;
 
 protected:
     /**
-         * \brief insert Node into Binarytree
+         * \brief insert Node into Graph
          */
     std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
                                          std::shared_ptr<Node<T> > bin_node) const
@@ -45,7 +39,7 @@ protected:
         return bin_node;
     }
     /**
-         * \brief insert Node into Binarytree
+         * \brief insert Node into Graph
          */
     std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
                                        std::shared_ptr<Node<T> > bin_node) const
@@ -65,7 +59,7 @@ protected:
         return bin_node;
     }
     /**
-         * \brief delete node from Binarytree
+         * \brief delete node from Graph
          */
     std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
                                          std::shared_ptr<Node<T> > bin_node) const
@@ -154,24 +148,24 @@ protected:
 
 public:
     /**
-         * \brief Initiates a Binarytree object
+         * \brief Initiates a Graph object
          */
-    Binarytree()
+    Graph()
     {
-        std::cout << "ctor - Binarytree \n";
-        root_ = nullptr;
+        std::cout << "ctor - Graph \n";
+        data_ = nullptr;
     }
     /**
-         * \brief Initiates a Binarytree object
+         * \brief Initiates a Graph object
          */
-    Binarytree(const std::vector<T>& data) : root_(std::make_shared<Node<T> >(data, 2))
+    Graph(const std::vector<T>& data) : data_(std::make_shared<Node<T> >(data, 2))
     {
-        std::cout << "ctor - Binarytree \n";
+        std::cout << "ctor - Graph \n";
     }
     /**
-         * \brief Delete Binarytree Object
+         * \brief Delete Graph Object
          */
-    ~Binarytree()
+    ~Graph()
     {
 
     }
@@ -206,12 +200,12 @@ public:
             std::cerr << "Empty point provided!!" << '\n';
             return false;
         }
-        if(root_ == nullptr){
-            root_ = std::make_shared<Node<T> >(data, 2);
+        if(data_ == nullptr){
+            data_ = std::make_shared<Node<T> >(data, 2);
             return true;
         }
 
-        if(insertNode(data, root_) == nullptr)
+        if(insertNode(data, data_) == nullptr)
             return false;
 
         return true;
@@ -225,7 +219,7 @@ public:
     >
     bool find(const UR&& data) const
     {
-        if(root_ == nullptr){
+        if(data_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
             return false;
         }
@@ -235,7 +229,7 @@ public:
             return false;
         }
 
-        if(findNode(data, root_) == nullptr){
+        if(findNode(data, data_) == nullptr){
             std::cout << "Point not found" << '\n';
             return false;
         }
@@ -251,7 +245,7 @@ public:
     >
     bool erase(const UR&& data)
     {
-        if(root_ == nullptr){
+        if(data_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
             return false;
         }
@@ -261,10 +255,10 @@ public:
             return false;
         }
 
-        if((root_->getNode(0) == nullptr) && (root_->getNode(1) == nullptr))
-            root_ = nullptr;
+        if((data_->getNode(0) == nullptr) && (data_->getNode(1) == nullptr))
+            data_ = nullptr;
 
-        else if(deleteNode(data, root_) == nullptr){
+        else if(deleteNode(data, data_) == nullptr){
             std::cout << "Point not found" << '\n';
             return false;
         }
@@ -276,46 +270,46 @@ public:
          */
     void min(std::vector<T>& minimum) const
     {
-        if(root_ == nullptr) return;
-        minimum = (minNode(root_))->getValues();
+        if(data_ == nullptr) return;
+        minimum = (minNode(data_))->getValues();
     }
     /**
          * \brief Helper function to find maximum along a specified axis
          */
     void max(std::vector<T>& maximum) const
     {
-        if(root_ == nullptr) return;
-        maximum = (maxNode(root_))->getValues();
+        if(data_ == nullptr) return;
+        maximum = (maxNode(data_))->getValues();
     }
     /**
          * \brief Helper function to visualize tree
          */
     void view() const
     {
-        visualizeTree(root_, 0);
+        visualizeTree(data_, 0);
     }
     /**
          * \brief Move Constructor
          */
-    Binarytree(Binarytree&& ) noexcept = default;
+    Graph(Graph&& ) noexcept = default;
     /**
          * \brief Copy Constructor
          */
-    Binarytree(const Binarytree& Binarytree) : root_(Binarytree.root_)
-    { std::cout << "copy - Binarytree \n";}
+    Graph(const Graph& Graph) : data_(Graph.data_)
+    { std::cout << "copy - Graph \n";}
     /**
          * \brief Copy Assingment Operator
          */
-    Binarytree& operator=(const Binarytree& Binarytree) noexcept
+    Graph& operator=(const Graph& Graph) noexcept
     {
-        return *this = Binarytree(Binarytree);
+        return *this = Graph(Graph);
     }
 
     /**
          * \brief Move Assignment Operator
          */
-    Binarytree& operator=(Binarytree&&) noexcept = default;
+    Graph& operator=(Graph&&) noexcept = default;
 
 };
 
-#endif // BINARYTREE_H
+#endif // GRAPH_H
