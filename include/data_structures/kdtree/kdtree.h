@@ -21,7 +21,7 @@ class KdTree
     /**
          * \brief Root Node of the KdTree
          */
-    std::shared_ptr<Node<T> > root_;
+    std::shared_ptr<Node< std::vector<T> > > root_;
     /**
          * \brief splitting axis of the data
          */
@@ -35,12 +35,12 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
-                                         std::shared_ptr<Node<T> > kd_node,
+    std::shared_ptr<Node<std::vector<T> > > insertNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<std::vector<T> > > kd_node,
                                          unsigned int cd) const
     {
 
-        if(kd_node == nullptr) kd_node = std::make_shared<Node<T> >(data, dataDimension_);
+        if(kd_node == nullptr) kd_node = std::make_shared<Node<std::vector<T> > >(data, dataDimension_);
 
         else if(data == kd_node->getValues())
             return nullptr;
@@ -56,8 +56,8 @@ protected:
     /**
          * \brief insert Node into KdTree
          */
-    std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
-                                       std::shared_ptr<Node<T> > kd_node,
+    std::shared_ptr<Node<std::vector<T> > > findNode(const std::vector<T>& data,
+                                       std::shared_ptr<Node<std::vector<T> > > kd_node,
                                        unsigned int axis) const
     {
         if (kd_node == nullptr)
@@ -79,8 +79,8 @@ protected:
     /**
          * \brief delete node from KdTree
          */
-    std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
-                                         std::shared_ptr<Node<T> > kd_node,
+    std::shared_ptr<Node<std::vector<T> > > deleteNode(const std::vector<T>& data,
+                                         std::shared_ptr<Node<std::vector<T> > > kd_node,
                                          unsigned int axis) const
     {
         if (kd_node == nullptr)
@@ -114,7 +114,7 @@ protected:
     /**
          * \brief Find Minimum along a specified axis
          */
-    std::shared_ptr<Node<T> > minNode(std::shared_ptr<Node<T> > kd_node,
+    std::shared_ptr<Node<std::vector<T> > > minNode(std::shared_ptr<Node<std::vector<T> > > kd_node,
                                       unsigned int axis,
                                       unsigned int cd) const
     {
@@ -138,7 +138,7 @@ protected:
     /**
          * \brief Find Maximum along a specified axis
          */
-    std::shared_ptr<Node<T> > maxNode(std::shared_ptr<Node<T> > kd_node,
+    std::shared_ptr<Node<std::vector<T> > > maxNode(std::shared_ptr<Node<std::vector<T> > > kd_node,
                                       unsigned int axis,
                                       unsigned int cd) const
     {
@@ -163,9 +163,9 @@ protected:
     /**
          * \brief Compares three nodes along an axis and returns minimum
          */
-    std::shared_ptr<Node<T> > minimum(std::shared_ptr<Node<T> > node1,
-                                      std::shared_ptr<Node<T> > node2,
-                                      std::shared_ptr<Node<T> > node3,
+    std::shared_ptr<Node<std::vector<T> > > minimum(std::shared_ptr<Node<std::vector<T> > > node1,
+                                      std::shared_ptr<Node<std::vector<T> > > node2,
+                                      std::shared_ptr<Node<std::vector<T> > > node3,
                                       unsigned int axis) const
     {
         if(node1 == nullptr && node2 == nullptr)
@@ -185,9 +185,9 @@ protected:
     /**
          * \brief Compares three nodes along an axis and returns maximum
          */
-    std::shared_ptr<Node<T> > maximum(std::shared_ptr<Node<T> > node1,
-                                      std::shared_ptr<Node<T> > node2,
-                                      std::shared_ptr<Node<T> > node3,
+    std::shared_ptr<Node<std::vector<T> > > maximum(std::shared_ptr<Node<std::vector<T> > > node1,
+                                      std::shared_ptr<Node<std::vector<T> > > node2,
+                                      std::shared_ptr<Node<std::vector<T> > > node3,
                                       unsigned int axis) const
     {
         if(node1 == nullptr && node2 == nullptr)
@@ -208,7 +208,7 @@ protected:
     /**
          * \brief Visualize the Tree
          */
-    void visualizeTree(std::shared_ptr<Node<T> > node,
+    void visualizeTree(std::shared_ptr<Node<std::vector<T> > > node,
                        unsigned int space) const
     {
         if(node == nullptr)
@@ -250,7 +250,7 @@ public:
     /**
          * \brief Initiates a KdTree object
          */
-    KdTree(const std::vector<T>& data, unsigned int cd) : cutDimension_(cd), root_(std::make_shared<Node<T> >(data, data.size()))
+    KdTree(const std::vector<T>& data, unsigned int cd) : cutDimension_(cd), root_(std::make_shared<Node<std::vector<T> > >(data, data.size()))
     {
         std::cout << "ctor - KdTree \n";
     }
@@ -293,7 +293,7 @@ public:
             return false;
         }
         if(root_ == nullptr){
-            root_ = std::make_shared<Node<T> >(data, data.size());
+            root_ = std::make_shared<Node<std::vector<T> > >(data, data.size());
             dataDimension_ = data.size();
             return true;
         }

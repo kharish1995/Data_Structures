@@ -3,4 +3,6 @@ CMakeCache.txt
 *.user
 CMakeFiles/*
 build/*
-
+html/*
+latex/*
+Doxyfile

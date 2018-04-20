@@ -13,7 +13,6 @@ int main()
     {
         std::cout << i <<'\t';
     }
-    Tree.erase({1,4});
     Tree.find({3,4});
     Tree.view();
 }

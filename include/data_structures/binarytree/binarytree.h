@@ -67,6 +67,8 @@ protected:
     /**
          * \brief delete node from Binarytree
          */
+
+    // Have to fix
     std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
                                          std::shared_ptr<Node<T> > bin_node) const
     {
@@ -77,17 +79,12 @@ protected:
         {
             if(bin_node->getNode(1) != nullptr)
             {
+                                                std::cout << "yes" << '\n';
                 auto min1 = minNode(bin_node->getNode(1))->getValues();
                 bin_node->setValue(min1);
                 bin_node->setNode(deleteNode(bin_node->getValues(), bin_node->getNode(1)), 1);
             }
 
-            else if(bin_node->getNode(0) != nullptr)
-            {
-                auto min1 = minNode(bin_node->getNode(0))->getValues();
-                bin_node->setValue(min1);
-                bin_node->setNode(deleteNode(bin_node->getValues(), bin_node->getNode(0)), 1);
-            }
             else
                 bin_node = nullptr;
         }
