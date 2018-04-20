@@ -13,6 +13,7 @@
 #include <cmath>
 #include <memory>
 #include <functional>
+#include <type_traits>
 #include <data_structures/common/node.h>
 
 template <typename T>
@@ -27,16 +28,16 @@ protected:
     /**
          * \brief insert Node into Binarytree
          */
-    std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > insertNode(const T& data,
                                          std::shared_ptr<Node<T> > bin_node) const
     {
 
         if(bin_node == nullptr) bin_node = std::make_shared<Node<T> >(data, 2);
 
-        else if(data == bin_node->getValues())
+        else if(data == bin_node->getValue())
             return nullptr;
 
-        else if(data.at(0) < bin_node->getValue(0))
+        else if(data < bin_node->getValue())
             bin_node->setNode(insertNode(data, bin_node->getNode(0)), 0);
 
         else
@@ -47,16 +48,16 @@ protected:
     /**
          * \brief insert Node into Binarytree
          */
-    std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > findNode(const T& data,
                                        std::shared_ptr<Node<T> > bin_node) const
     {
         if (bin_node == nullptr)
             return nullptr;
 
-        if(data == bin_node->getValues())
+        if(data == bin_node->getValue())
             return bin_node;
 
-        else if (data.at(0) < bin_node->getValue(0))
+        else if (data < bin_node->getValue())
             bin_node = findNode(data, bin_node->getNode(0));
 
         else
@@ -69,27 +70,27 @@ protected:
          */
 
     // Have to fix
-    std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > deleteNode(const T& data,
                                          std::shared_ptr<Node<T> > bin_node) const
     {
         if (bin_node == nullptr)
             return nullptr;
 
-        if(data == bin_node->getValues())
+        if(data == bin_node->getValue())
         {
             if(bin_node->getNode(1) != nullptr)
             {
                                                 std::cout << "yes" << '\n';
-                auto min1 = minNode(bin_node->getNode(1))->getValues();
+                auto min1 = minNode(bin_node->getNode(1))->getValue();
                 bin_node->setValue(min1);
-                bin_node->setNode(deleteNode(bin_node->getValues(), bin_node->getNode(1)), 1);
+                bin_node->setNode(deleteNode(bin_node->getValue(), bin_node->getNode(1)), 1);
             }
 
             else
                 bin_node = nullptr;
         }
 
-        else if (data < bin_node->getValues())
+        else if (data < bin_node->getValue())
         {
             bin_node->setNode(deleteNode(data, bin_node->getNode(0)), 0);
         }
@@ -141,8 +142,7 @@ protected:
         for(unsigned int i = 10; i < space; ++i)
             std::cout << " ";
 
-        for(const auto& i : node->getValues())
-            std::cout << i << " ";
+        std::cout << node->getValue() << " ";
 
         visualizeTree(node->getNode(0), space);
         std::cout << '\n';
@@ -161,7 +161,7 @@ public:
     /**
          * \brief Initiates a Binarytree object
          */
-    Binarytree(const std::vector<T>& data) : root_(std::make_shared<Node<T> >(data, 2))
+    Binarytree(const T& data) : root_(std::make_shared<Node<T> >(data, 2))
     {
         std::cout << "ctor - Binarytree \n";
     }
@@ -177,14 +177,14 @@ public:
          * \brief Create Tree structure for given input data
          */
     template <
-        class UR = std::vector<std::vector<T> >,
-        class TypeMustBeStdVectorofVectors = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<std::vector<T> > >::value>
+        class UR = std::vector<T>,
+        class TypeMustBeStdVectorofVectors = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
     >
     bool build(UR&& data)
     {
         for(auto& node_data : data)
         {
-            if(!insert(std::forward<const std::vector<T> >(node_data)))
+            if(!insert(std::forward<const T>(node_data)))
                 return false;
         }
         return true;
@@ -193,16 +193,14 @@ public:
          * \brief Helper function to insert node
          */
     template <
-        class UR = std::vector<T>,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustT = std::remove_reference_t<UR>
     >
     bool insert(const UR&& data)
     {
+        static_assert((std::is_same<UR, T>::value),
+                          "The data-type of class does not match with the argument");
 
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
-            return false;
-        }
         if(root_ == nullptr){
             root_ = std::make_shared<Node<T> >(data, 2);
             return true;
@@ -217,18 +215,16 @@ public:
          * \brief Helper function to find node
          */
     template <
-        class UR = std::vector<T> ,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustBeT = std::remove_reference_t<UR>
     >
     bool find(const UR&& data) const
     {
+        static_assert((std::is_same<UR, T>::value),
+                          "The data-type of class does not match with the argument");
+
         if(root_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
-            return false;
-        }
-
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
             return false;
         }
 
@@ -243,18 +239,16 @@ public:
          * \brief Helper function to delete node
          */
     template <
-        class UR = std::vector<T>,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustBeT = std::remove_reference_t<UR>
     >
     bool erase(const UR&& data)
     {
+        static_assert((std::is_same<UR, T>::value),
+                          "The data-type of class does not match with the argument");
+
         if(root_ == nullptr){
             std::cerr << "Sorry, Tree not built yet!!" << '\n';
-            return false;
-        }
-
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
             return false;
         }
 
@@ -271,18 +265,18 @@ public:
     /**
          * \brief Helper function to find minimum along a specified axis
          */
-    void min(std::vector<T>& minimum) const
+    void min(T& minimum) const
     {
         if(root_ == nullptr) return;
-        minimum = (minNode(root_))->getValues();
+        minimum = (minNode(root_))->getValue();
     }
     /**
          * \brief Helper function to find maximum along a specified axis
          */
-    void max(std::vector<T>& maximum) const
+    void max(T& maximum) const
     {
         if(root_ == nullptr) return;
-        maximum = (maxNode(root_))->getValues();
+        maximum = (maxNode(root_))->getValue();
     }
     /**
          * \brief Helper function to visualize tree
