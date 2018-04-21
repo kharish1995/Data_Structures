@@ -32,7 +32,7 @@ public:
     /**
          * \brief Set the pointer to the Node
          */
-    void setNode(std::shared_ptr<Node<T> > node, unsigned int i)
+    void setNode(const std::shared_ptr<Node<T> > node, unsigned int i)
     {
         if (i <= nodes_.size())
         {
@@ -51,7 +51,7 @@ public:
     /**
          * \brief constructs node object with the value given pointer to value
          */
-    Node(T* value, unsigned int size = 2): nodes_(size, nullptr)
+    Node(const T* value, unsigned int size = 2): nodes_(size, nullptr)
     {
         value_ = *value;
     }
@@ -124,14 +124,14 @@ public:
         class UR = std::vector<U>,
         class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<U> >::value>
     >
-    void setValue(UR&& value)
+    void setValue(const UR&& value)
     {
         value_ = value;
     }
     /**
          * \brief Set the pointer to the Node
          */
-    void setNode(std::shared_ptr<Node<std::vector<U> > > node, unsigned int i)
+    void setNode(const std::shared_ptr<Node<std::vector<U> > > node, unsigned int i)
     {
         if (i <= nodes_.size())
         {
@@ -150,7 +150,7 @@ public:
     /**
          * \brief constructs node object with the value given pointer to value
          */
-    Node(std::vector<U>* value, unsigned int size = 2): nodes_(size, nullptr)
+    Node(const std::vector<U>* value, unsigned int size = 2): nodes_(size, nullptr)
     {
         value_ = *value;
     }
