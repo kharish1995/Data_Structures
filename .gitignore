@@ -7,3 +7,4 @@ html/*
 latex/*
 docs/*
 Doxyfile
+*.h.in
