@@ -1,8 +1,10 @@
-/*
- * This code is developed to implement the Binarytree data structure
- * The authors of this code is Harish Karunakaran
- * The code is available at https://github.com/HarishKarunakaran/Data_Structures/
+/** @file kdtree.h
+ *  @brief KdTree Class
  *
+ *  This contains the definitions and helper functions for Binary Search Tree class
+ *
+ *  @author Harish Karunakaran
+ *  @bug No known bugs.
  */
 
 #ifndef BINARYTREE_H
@@ -68,8 +70,6 @@ protected:
     /**
          * \brief delete node from Binarytree
          */
-
-    // Have to fix
     std::shared_ptr<Node<T> > deleteNode(const T& data,
                                          std::shared_ptr<Node<T> > bin_node) const
     {
@@ -80,7 +80,6 @@ protected:
         {
             if(bin_node->getNode(1) != nullptr)
             {
-                                                std::cout << "yes" << '\n';
                 auto min1 = minNode(bin_node->getNode(1))->getValue();
                 bin_node->setValue(min1);
                 bin_node->setNode(deleteNode(bin_node->getValue(), bin_node->getNode(1)), 1);

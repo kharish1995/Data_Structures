@@ -17,7 +17,7 @@ int main()
     //tree.insert({18});
     tree.min(m1);
     tree.max(m2);
-    tree.find(11);
+    tree.find(2);
     tree.erase(8);
     std::cout << m1 << '\n';
     std::cout << m2 << '\n';
