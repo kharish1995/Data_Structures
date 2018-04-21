@@ -11,7 +11,7 @@ g++ Version   - 6.3 <br />
 
 Follow the commands below to build the repo locally:
 
-1) Clone the latest source using the following command, <br />
+1) Fire up a new terminal and clone the latest source using the following command, <br />
 ```
 git clone https://github.com/HarishKarunakaran/Data_Structures.git
 ```
@@ -43,7 +43,7 @@ Binary Search Tree:
 #include <data_structures/binarytree/binarytree.h>
 ```
 
-# ISSUES:
+# DOCUMENTATION:
 
 Instructions on using each of the data structures can be found in the corresponding files in the src/ folder. <br />
 
