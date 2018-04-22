@@ -292,7 +292,9 @@ public:
          * \brief Copy Constructor
          */
     Binarytree(const Binarytree& Binarytree) : root_(Binarytree.root_)
-    { std::cout << "copy - Binarytree \n";}
+    {
+        std::cout << "copy - Binarytree \n";
+    }
     /**
          * \brief Copy Assingment Operator
          */
