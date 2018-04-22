@@ -3,15 +3,12 @@
 
 int main()
 {
-    std::vector< std::vector<int> > data = {{1},{3},{6},{9}};
-    std::vector<int> data1 = {7};
-
     Linkedlist<int> ll;
-    ll.insert(data1);
-    ll.insert({4});
-    ll.insert({3});
-    ll.insert({2});
-    ll.erase({2});
+    ll.insert(7);
+    ll.insert(4);
+    ll.insert(3);
+    ll.insert(2);
+    ll.erase(2);
     //ll.view();
 //    KdTree<int> Tree;
 //    Tree.build({{1,2},{3,4},{5,6},{9,10}});

@@ -27,7 +27,7 @@ protected:
     /**
          * \brief insert Node into Linkedlist
          */
-    std::shared_ptr<Node<T> > insertNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > insertNode(const T& data,
                                          std::shared_ptr<Node<T> > ll_node) const
     {
         if(ll_node == nullptr) ll_node = std::make_shared<Node<T> >(data, 1);
@@ -40,7 +40,7 @@ protected:
     /**
          * \brief insert Node into Linkedlist
          */
-    std::shared_ptr<Node<T> > findNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > findNode(const T& data,
                                        std::shared_ptr<Node<T> > ll_node) const
     {
 
@@ -48,19 +48,19 @@ protected:
     /**
          * \brief delete node from Linkedlist
          */
-    std::shared_ptr<Node<T> > deleteNode(const std::vector<T>& data,
+    std::shared_ptr<Node<T> > deleteNode(const T& data,
                                          std::shared_ptr<Node<T> > ll_node)
     {
         if (ll_node == nullptr)
             return nullptr;
 
-        if(data == ll_node->getValues())
+        if(data == ll_node->getValue())
         {
             if(ll_node->getNode(0) != nullptr)
             {
                 //auto min1 = minNode(ll_node->getNode(0))->getValues();
-                ll_node->setValue({0});
-                ll_node->setNode(deleteNode(ll_node->getValues(), ll_node->getNode(0)), 0);
+                ll_node->setValue(0);
+                ll_node->setNode(deleteNode(ll_node->getValue(), ll_node->getNode(0)), 0);
             }
             else
                 ll_node = nullptr;
@@ -95,7 +95,7 @@ public:
     /**
        * \brief Initiates a Linkedlist object
        */
-    Linkedlist(std::vector<T>& data) : data_(std::make_shared<Node<T> >(data, 1)) { }
+    Linkedlist(T& data) : data_(std::make_shared<Node<T> >(data, 1)) { }
     /**
          * \brief Delete Linkedlist Object
          */
@@ -104,17 +104,13 @@ public:
          * \brief Helper function to insert node
          */
     template <
-        class UR = std::vector<T>,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustBeT = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, T>::value>
     >
     bool insert(UR&& data)
     {
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
-            return false;
-        }
         if(data_ == nullptr){
-            data_ = std::make_shared<Node<T> >(data, data.size());
+            data_ = std::make_shared<Node<T> >(data, 1);
             return true;
         }
 
@@ -127,8 +123,8 @@ public:
          * \brief Helper function to find node
          */
     template <
-        class UR = std::vector<T>,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustBeT = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, T >::value>
     >
     bool find(UR&& data) const
     {
@@ -138,18 +134,13 @@ public:
          * \brief Helper function to delete node
          */
     template <
-        class UR = std::vector<T>,
-        class TypeMustBeStdVector = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, std::vector<T> >::value>
+        class UR = T,
+        class TypeMustBeT = std::enable_if_t<std::is_same<std::remove_reference_t<UR>, T >::value>
     >
     bool erase(UR&& data)
     {
         if(data_ == nullptr){
             std::cerr << "Sorry, Linked List not built yet!!" << '\n';
-            return false;
-        }
-
-        if(data.empty()){
-            std::cerr << "Empty point provided!!" << '\n';
             return false;
         }
 
