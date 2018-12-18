@@ -1,3 +1,7 @@
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/HarishKarunakaran/Data_Structures/master/LICENSE.MIT)
+[![GitHub Issues](https://img.shields.io/github/issues/HarishKarunakaran/Data_Structures.svg)](http://github.com/HarishKarunakaran/Data_Structures/issues)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/HarishKarunakaran/Data_Structures.svg)](http://isitmaintained.com/project/HarishKarunakaran/Data_Structures)
+
 # Data_Structures
 KdTree, Linkedlist, Binary Search Tree (list will be updated as more data structures are implemented) <br />
 
