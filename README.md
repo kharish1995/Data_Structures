@@ -7,13 +7,13 @@
 # Data_Structures
 KdTree, Linkedlist, Binary Search Tree (list will be updated as more data structures are implemented) <br />
 
-# REQUIREMENTS:
+# REQUIREMENTS
 
 C++14 Required <br />
 CMake Version - 2.8 <br />
 g++ Version   - 6.3 <br />
 
-# Building and Installing the repo from source:
+# Building and Installing the repo from source
 
 Follow the commands below to build the repo locally:
 
@@ -49,13 +49,13 @@ Binary Search Tree:
 #include <data_structures/binarytree/binarytree.h>
 ```
 
-# DOCUMENTATION:
+# DOCUMENTATION
 
 Instructions on using each of the data structures can be found in the corresponding files in the src/ folder. <br />
 
-# ISSUES:
+# ISSUES
 
 Please raise issues if any arise or contact me using the contact info below. Thank you for checking out my repo! <br />
 
-# CONTACT:
+# CONTACT
 karunaha73925@gmail.com
