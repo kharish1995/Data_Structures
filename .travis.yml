@@ -6,3 +6,9 @@
 language: cpp
 
 sudo: required
+
+os:
+  - linux
+  
+compiler:
+  - g++
