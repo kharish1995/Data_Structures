@@ -1,0 +1,8 @@
+#########################
+# project configuration #
+#########################
+
+# C++ project
+language: cpp
+
+sudo: required
