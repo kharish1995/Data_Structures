@@ -1,5 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/HarishKarunakaran/Data_Structures/master/LICENSE.MIT)
 [![GitHub Issues](https://img.shields.io/github/issues/HarishKarunakaran/Data_Structures.svg)](http://github.com/HarishKarunakaran/Data_Structures/issues)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/HarishKarunakaran/Data_Structures.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/HarishKarunakaran/Data_Structures/alerts/)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/HarishKarunakaran/Data_Structures.svg)](http://isitmaintained.com/project/HarishKarunakaran/Data_Structures)
 
 # Data_Structures
